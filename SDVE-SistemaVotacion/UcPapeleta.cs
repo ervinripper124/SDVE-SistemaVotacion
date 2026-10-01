@@ -1,0 +1,172 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace SDVE_SistemaVotacion
+{
+    public partial class UcPapeleta : UserControl
+    {
+        public struct EstadoDeSeleccion
+        {
+            public bool selSociedad;
+            public bool selConsejoU;
+            public bool selConsejoR;
+
+            public string candidatoSociedad;
+            public string candidatoConsejoU;
+            public string candidatoConsejoR;
+        }
+
+        bool selSociedad = false;
+        bool selConsejoU = false;
+        bool selConsejoR = false;
+
+        public int TotalSelecciones = 0;
+        public UcPapeleta()
+        {
+            InitializeComponent();
+        }
+
+        private void guna2ShadowPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void UcPapeleta_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void actualizarSeleccion()
+        {
+            int contador = 0;
+
+            if (selSociedad == true) { contador++; }
+            if (selConsejoU == true) { contador++; }
+            if (selConsejoR == true) { contador++; }
+
+            TotalSelecciones = contador;
+
+            if (contador == 0)
+            {
+                lblIzquierda.Text = "Aun no ha seleccionado ninguna opción";
+            }
+            else if (contador == 1)
+            {
+                lblIzquierda.Text = "1 de 3 seleccionado";
+            }
+            else if (contador == 2)
+            {
+                lblIzquierda.Text = "2 de 3 seleccionado";
+            }
+            else if (contador == 3)
+            {
+                lblIzquierda.Text = "3 de 3 seleccionado";
+
+            }
+        }
+
+        private void pnlSelSociedadDeAlumnos_Click(object sender, EventArgs e)
+        {
+            selSociedad = !selSociedad;
+
+            if (selSociedad == true)
+            {
+                pnlSelSociedadDeAlumnos.FillColor = Color.FromArgb(94, 148, 255);
+            }
+            else
+            {
+                pnlSelSociedadDeAlumnos.FillColor = Color.FromArgb(245, 245, 245);
+
+            }
+            actualizarSeleccion();
+        }
+
+        private void pnlConsejoUniversitario_Click(object sender, EventArgs e)
+        {
+            selConsejoU = !selConsejoU;
+            if (selConsejoU == true)
+            {
+                pnlConsejoUniversitario.FillColor = Color.FromArgb(94, 148, 255);
+            }
+            else
+            {
+                pnlConsejoUniversitario.FillColor = Color.FromArgb(245, 245, 245);
+            }
+            actualizarSeleccion();
+        }
+
+
+
+        private void pnlConsejoDeRepresentantes_Click(object sender, EventArgs e)
+        {
+            selConsejoR = !selConsejoR;
+            if (selConsejoR == true)
+            {
+                pnlConsejoDeRepresentantes.FillColor = Color.FromArgb(94, 148, 255);
+            }
+            else
+            {
+                pnlConsejoDeRepresentantes.FillColor = Color.FromArgb(245, 245, 245);
+            }
+            actualizarSeleccion();
+        }
+
+        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnContinuar_Click(object sender, EventArgs e)
+        {
+            if (TotalSelecciones == 0)
+            {
+                MessageBox.Show("Debe seleccionar al menos una opción para continuar.", "Selección requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                Form1 ventanaPrincipal = this.ParentForm as Form1;
+
+                if (ventanaPrincipal != null)
+                {
+                    EstadoDeSeleccion Estado = new EstadoDeSeleccion();
+                    {
+                        Estado.selSociedad = selSociedad;
+                        Estado.selConsejoU = selConsejoU;
+                        Estado.selConsejoR = selConsejoR;
+
+                        if (Estado.selSociedad)
+                        {
+                            UcVotarSociedadDeAlumnos votarSociedad = new UcVotarSociedadDeAlumnos(Estado);
+                            ventanaPrincipal.Ir(votarSociedad);
+                        }
+                        else if (Estado.selConsejoU)
+                        {
+                            UcVotarConsejoUniversitario votarConsejoU = new UcVotarConsejoUniversitario(Estado);
+                            ventanaPrincipal.Ir(votarConsejoU);
+                        }
+                        else if (Estado.selConsejoR)
+                        {
+                            UcVotarConsejoDeRepresentantes votarConsejoR = new UcVotarConsejoDeRepresentantes(Estado);
+                            ventanaPrincipal.Ir(votarConsejoR);
+
+                        }
+
+                    }
+                }
+
+
+            }
+        }
+    }
+}
+
