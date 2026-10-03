@@ -10,6 +10,7 @@ namespace SDVE_SistemaVotacion
 {
     public partial class UcPapeleta : UserControl
     {
+        
         public struct EstadoDeSeleccion
         {
             public bool selSociedad;
@@ -30,6 +31,15 @@ namespace SDVE_SistemaVotacion
         {
             InitializeComponent();
         }
+        public UcPapeleta(EstadoDeSeleccion estadoRecibido) : this()
+        {
+           
+
+            // Sincronizamos las variables booleanas internas con el estado recibido
+            this.selSociedad = !string.IsNullOrEmpty(estadoRecibido.candidatoSociedad);
+            this.selConsejoU = !string.IsNullOrEmpty(estadoRecibido.candidatoConsejoU);
+            this.selConsejoR = !string.IsNullOrEmpty(estadoRecibido.candidatoConsejoR);
+        }
 
         private void guna2ShadowPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -38,6 +48,7 @@ namespace SDVE_SistemaVotacion
 
         private void UcPapeleta_Load(object sender, EventArgs e)
         {
+            lblTitulo.Font = HelperFuentes.BricolageBold(12f);
 
         }
         private void actualizarSeleccion()
@@ -75,11 +86,15 @@ namespace SDVE_SistemaVotacion
 
             if (selSociedad == true)
             {
-                pnlSelSociedadDeAlumnos.FillColor = Color.FromArgb(94, 148, 255);
+                pnlSelSociedadDeAlumnos.FillColor = Color.FromArgb(10, 25, 49);
+                guna2HtmlLabel1.ForeColor = Color.White;
+                circulo1.FillColor = Color.FromArgb(230, 81, 0);
             }
             else
             {
                 pnlSelSociedadDeAlumnos.FillColor = Color.FromArgb(245, 245, 245);
+                guna2HtmlLabel1.ForeColor = Color.FromArgb(10, 25, 49);
+                circulo1.FillColor = Color.FromArgb(224, 224, 224);
 
             }
             actualizarSeleccion();
@@ -90,11 +105,15 @@ namespace SDVE_SistemaVotacion
             selConsejoU = !selConsejoU;
             if (selConsejoU == true)
             {
-                pnlConsejoUniversitario.FillColor = Color.FromArgb(94, 148, 255);
+                pnlConsejoUniversitario.FillColor = Color.FromArgb(10, 25, 49);
+                guna2HtmlLabel2.ForeColor = Color.White;
+                circulo2.FillColor = Color.FromArgb(230, 81, 0);
             }
             else
             {
                 pnlConsejoUniversitario.FillColor = Color.FromArgb(245, 245, 245);
+                guna2HtmlLabel2.ForeColor = Color.FromArgb(10, 25, 49);
+                circulo2.FillColor = Color.FromArgb(224, 224, 224);
             }
             actualizarSeleccion();
         }
@@ -106,23 +125,17 @@ namespace SDVE_SistemaVotacion
             selConsejoR = !selConsejoR;
             if (selConsejoR == true)
             {
-                pnlConsejoDeRepresentantes.FillColor = Color.FromArgb(94, 148, 255);
+                pnlConsejoDeRepresentantes.FillColor = Color.FromArgb(10, 25, 49);
+                guna2HtmlLabel3.ForeColor = Color.White;
+                circulo3.FillColor = Color.FromArgb(230, 81, 0);
             }
             else
             {
                 pnlConsejoDeRepresentantes.FillColor = Color.FromArgb(245, 245, 245);
+                guna2HtmlLabel3.ForeColor = Color.FromArgb(10, 25, 49); 
+                circulo3.FillColor = Color.FromArgb(224, 224, 224);
             }
             actualizarSeleccion();
-        }
-
-        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)
@@ -166,6 +179,16 @@ namespace SDVE_SistemaVotacion
 
 
             }
+        }
+
+        private void guna2HtmlLabel4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

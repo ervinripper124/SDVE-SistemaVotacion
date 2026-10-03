@@ -7,6 +7,9 @@ namespace SDVE_SistemaVotacion
     public partial class UcConfirmacion : UserControl
     {
         private UcPapeleta.EstadoDeSeleccion EstadoRecibido;
+        private int progreso = 0;
+
+        public UcPapeleta.EstadoDeSeleccion EstadoActual => EstadoRecibido;
 
         public UcConfirmacion(UcPapeleta.EstadoDeSeleccion Estado)
         {
@@ -16,10 +19,6 @@ namespace SDVE_SistemaVotacion
             lblConfirmacionCandidatoSociedadA.Text = Estado.candidatoSociedad;
             lblConfirmacionCandidatoConsejoU.Text = Estado.candidatoConsejoU;
             lblConfirmacionCandidatoConsejoR.Text = Estado.candidatoConsejoR;
-        }
-
-        private void guna2HtmlLabel4_Click(object sender, EventArgs e)
-        {
         }
 
         private void UcConfirmacion_Load(object sender, EventArgs e)
@@ -43,73 +42,151 @@ namespace SDVE_SistemaVotacion
 
             // 3. Mostrar u ocultar según el estado de la votación
             mostrarPaneles(EstadoRecibido);
-        }
 
-        private void btnCambiarSA_Click(object sender, EventArgs e)
-        {
-            Form1 ventanaPrincipal = this.ParentForm as Form1;
-            if (ventanaPrincipal != null)
-            {
-                UcVotarSociedadDeAlumnos cambiarVoto = new UcVotarSociedadDeAlumnos(EstadoRecibido);
-                ventanaPrincipal.Ir(cambiarVoto);
-            }
-        }
+            // Tipografías y Colores Institucionales UAA
+            lblRevisar.Font = HelperFuentes.BricolageBold(15f);
+            lblRevisar.ForeColor = Color.FromArgb(10, 25, 49); // Azul UAA
 
-        private void btnCambiarCU_Click(object sender, EventArgs e)
-        {
-            Form1 ventanaPrincipal = this.ParentForm as Form1;
-            if (ventanaPrincipal != null)
-            {
-                UcVotarConsejoUniversitario cambiarVoto = new UcVotarConsejoUniversitario(EstadoRecibido);
-                ventanaPrincipal.Ir(cambiarVoto);
-            }
-        }
+            // Aplicar Instrument Sans a los textos de las tarjetas
+            lbl1.Font = HelperFuentes.InstrumentRegular(11f);
+            lblConfirmacionCandidatoSociedadA.Font = HelperFuentes.BricolageBold(8f);
+            lbl1.ForeColor = Color.FromArgb(10, 25, 49);
 
-        private void btnCambiarCR_Click(object sender, EventArgs e)
-        {
-            Form1 ventanaPrincipal = this.ParentForm as Form1;
-            if (ventanaPrincipal != null)
-            {
-                UcVotarConsejoDeRepresentantes cambiarVoto = new UcVotarConsejoDeRepresentantes(EstadoRecibido);
-                ventanaPrincipal.Ir(cambiarVoto);
-            }
-        }
+            lbl2.Font = HelperFuentes.InstrumentRegular(11f);
+            lblConfirmacionCandidatoConsejoU.Font = HelperFuentes.BricolageBold(8f);
+            lbl2.ForeColor = Color.FromArgb(10, 25, 49);
 
-        private void btnEnviar_Click(object sender, EventArgs e)
-        {
-            Form1 ventanaPrincipal = this.ParentForm as Form1;
-            if (ventanaPrincipal != null)
-            {
-                UcVotoRegistrado votoRegistrado = new UcVotoRegistrado();
-                ventanaPrincipal.Ir(votoRegistrado);
-            }
+            lbl3.Font = HelperFuentes.InstrumentRegular(11f);
+            lblConfirmacionCandidatoConsejoR.Font = HelperFuentes.BricolageBold(8f);
+            lbl3.ForeColor = Color.FromArgb(10, 25, 49);
+
+            lblFecha.Font = HelperFuentes.InstrumentRegular(10f);
+
+            // --- CONFIGURACIÓN DE LA ETIQUETA SOBRE LA BARRA DE PROGRESO ---
+            lblEnviar.Font = HelperFuentes.BricolageBold(12f);
+            lblEnviar.Parent = pbEnviar; // Vincular directamente a la barra para fondo 100% transparente
+            lblEnviar.BackColor = Color.Transparent;
+
+            // VINCULAR EVENTOS DEL MOUSE PARA QUE RESPONDA AL CLIC SOBRE EL TEXTO
+            lblEnviar.MouseDown += pbEnviar_MouseDown;
+            lblEnviar.MouseUp += pbEnviar_MouseUp;
+            lblEnviar.MouseLeave += pbEnviar_MouseLeave;
+
+            CancelarEnvio(); // Inicializa texto, color y centrado en pantalla
         }
 
         private void mostrarPaneles(UcPapeleta.EstadoDeSeleccion Estado)
         {
-            // Evaluamos si cada categoría tiene candidato seleccionado
             bool tieneSociedad = !string.IsNullOrWhiteSpace(Estado.candidatoSociedad);
             bool tieneCU = !string.IsNullOrWhiteSpace(Estado.candidatoConsejoU);
             bool tieneCR = !string.IsNullOrWhiteSpace(Estado.candidatoConsejoR);
 
-            // 1. Sociedad de Alumnos
             pnlSociedad.Visible = tieneSociedad;
             pbSociedadVacio.Visible = !tieneSociedad;
             if (!tieneSociedad) pbSociedadVacio.BringToFront();
 
-            // 2. Consejo Universitario
             pnlCU.Visible = tieneCU;
             pbCUVacio.Visible = !tieneCU;
             if (!tieneCU) pbCUVacio.BringToFront();
 
-            // 3. Consejo de Representantes
             pnlCR.Visible = tieneCR;
             pbCRVacio.Visible = !tieneCR;
             if (!tieneCR) pbCRVacio.BringToFront();
         }
 
-        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        #region Navegación para Modificar Selección
+        private void btnCambiarSA_Click(object sender, EventArgs e)
         {
+            Form1 ventanaPrincipal = this.ParentForm as Form1;
+            ventanaPrincipal?.Ir(new UcVotarSociedadDeAlumnos(EstadoRecibido));
         }
+
+        private void btnCambiarCU_Click(object sender, EventArgs e)
+        {
+            Form1 ventanaPrincipal = this.ParentForm as Form1;
+            ventanaPrincipal?.Ir(new UcVotarConsejoUniversitario(EstadoRecibido));
+        }
+
+        private void btnCambiarCR_Click(object sender, EventArgs e)
+        {
+            Form1 ventanaPrincipal = this.ParentForm as Form1;
+            ventanaPrincipal?.Ir(new UcVotarConsejoDeRepresentantes(EstadoRecibido));
+        }
+        #endregion
+
+        #region Lógica Hold to Confirm (pbEnviar + lblEnviar)
+        private void pbEnviar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                progreso = 0;
+                pbEnviar.Value = 0;
+                lblEnviar.ForeColor = Color.White; // Texto blanco para contraste al llenar
+                timerEnvio.Start();
+            }
+        }
+
+        private void pbEnviar_MouseUp(object sender, MouseEventArgs e)
+        {
+            CancelarEnvio();
+        }
+
+        private void pbEnviar_MouseLeave(object sender, EventArgs e)
+        {
+            CancelarEnvio();
+        }
+
+        private void CancelarEnvio()
+        {
+            timerEnvio.Stop();
+            progreso = 0;
+            pbEnviar.Value = 0;
+
+            // Actualizar la etiqueta flotante (NO la barra)
+            lblEnviar.Text = "Mantén presionado para enviar";
+            lblEnviar.ForeColor = Color.White;
+
+            CentrarTextoEnBarra();
+        }
+
+        private void timerEnvio_Tick(object sender, EventArgs e)
+        {
+            progreso += 2; 
+
+            if (progreso <= 100)
+            {
+                pbEnviar.Value = progreso;
+
+            }
+            else
+            {
+                timerEnvio.Stop();
+                pbEnviar.Value = 100;
+                lblEnviar.Text = "¡Voto Confirmado!";
+                CentrarTextoEnBarra();
+
+                Form1 principal = this.ParentForm as Form1;
+                if (principal != null)
+                {
+                    principal.Ir(new UcVotoRegistrado(), guardarEnHistorial: false);
+                }
+            }
+        }
+
+        private void CentrarTextoEnBarra()
+        {
+            if (pbEnviar != null && lblEnviar != null)
+            {
+                // Como pbEnviar es el Padre, (0,0) es la esquina superior izquierda de la barra
+                lblEnviar.Location = new Point(
+                    (pbEnviar.Width - lblEnviar.Width) / 2,
+                    (pbEnviar.Height - lblEnviar.Height) / 2
+                );
+            }
+        }
+        #endregion
+
+        private void guna2HtmlLabel4_Click(object sender, EventArgs e) { }
+        private void guna2PictureBox1_Click(object sender, EventArgs e) { }
     }
 }

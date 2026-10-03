@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
-
 
 namespace SDVE_SistemaVotacion
 {
     public partial class UcVotoRegistrado : UserControl
     {
-        private int segundosRestantes = 5;
+        // 50 ticks de 100 ms = 5 segundos de conteo fluido
+        private int totalTicks = 50;
+        private int tickActual = 50;
+
         public UcVotoRegistrado()
         {
             InitializeComponent();
@@ -20,15 +18,32 @@ namespace SDVE_SistemaVotacion
 
         private void UcVotoRegistrado_Load(object sender, EventArgs e)
         {
-            lblFolioVotar.Text = "Gracias por votar! Tu folio es: " + GenerarFolio(8);
+            // 1. Título de Confirmación
+            guna2HtmlLabel1.Text = "¡Voto Registrado con Éxito!";
+            guna2HtmlLabel1.Font = HelperFuentes.BricolageBold(18f);
+            guna2HtmlLabel1.ForeColor = Color.FromArgb(10, 25, 49); // Azul UAA
 
-            guna2ProgressBar1.Maximum = segundosRestantes;
-            guna2ProgressBar1.Value = segundosRestantes;
+            // 2. Generar Folio Único
+            lblFolioVotar.Text = $"¡Gracias por votar!\nTu folio es: {GenerarFolio(8)}";
+            lblFolioVotar.Font = HelperFuentes.BricolageBold(12f);
+            lblFolioVotar.ForeColor = Color.FromArgb(230, 81, 0); // Naranja Flama UAA
 
-            timerCuentaRegresiva.Interval = 1000; 
+            // 3. Cuenta regresiva
+            lblSegundosRestantes.Font = HelperFuentes.InstrumentRegular(11f);
+            lblSegundosRestantes.ForeColor = Color.FromArgb(107, 114, 128); // Gris tenue
+
+            // 4. Estilo de la Barra de Progreso UAA
+            guna2ProgressBar1.ProgressColor = Color.FromArgb(230, 81, 0); // Naranja Flama
+            guna2ProgressBar1.ProgressColor2 = Color.DarkOrange;
+            guna2ProgressBar1.Maximum = totalTicks;
+            guna2ProgressBar1.Value = totalTicks;
+
+            // 5. Iniciar Timer (100 ms por tick)
+            timerCuentaRegresiva.Interval = 100;
+            tickActual = totalTicks;
             timerCuentaRegresiva.Start();
-
         }
+
         public static string GenerarFolio(int longitud = 8)
         {
             const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -43,31 +58,28 @@ namespace SDVE_SistemaVotacion
             return new string(resultado);
         }
 
-
         private void timerCuentaRegresiva_Tick(object sender, EventArgs e)
         {
-            segundosRestantes--;
-            lblSegundosRestantes.Text = "Volviendo al inicio en " + segundosRestantes.ToString()+" segundos";
-            if (segundosRestantes >= 0)
+            tickActual--;
+
+            if (tickActual >= 0)
             {
-             
-                guna2ProgressBar1.Value = segundosRestantes;
+                guna2ProgressBar1.Value = tickActual;
+
+                int segundos = (int)Math.Ceiling(tickActual / 10.0);
+                lblSegundosRestantes.Text = $"Volviendo al inicio en {segundos} segundo{(segundos == 1 ? "" : "s")}...";
             }
             else
             {
-                
                 timerCuentaRegresiva.Stop();
 
                 Form1 ventanaPrincipal = this.ParentForm as Form1;
                 if (ventanaPrincipal != null)
                 {
-                    UcBienvenida VolverBienvenida = new UcBienvenida();     
-                    ventanaPrincipal.Ir(VolverBienvenida);
+                    // Regresa a bienvenida sin guardar en el historial
+                    ventanaPrincipal.Ir(new UcBienvenida(), guardarEnHistorial: false);
                 }
             }
         }
-
-     
-      
     }
 }

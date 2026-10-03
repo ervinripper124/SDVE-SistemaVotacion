@@ -30,6 +30,8 @@ namespace SDVE_SistemaVotacion
 
         private void UcBienvenida_Load(object sender, EventArgs e)
         {
+           lblTitulo.Font = HelperFuentes.BricolageBold(20f);
+            lblTitulo.CentrarHorizontal(this);
 
         }
     }
