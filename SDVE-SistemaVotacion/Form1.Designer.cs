@@ -30,13 +30,11 @@
         {
             components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             pnlTop = new Guna.UI2.WinForms.Guna2Panel();
             guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
@@ -62,9 +60,10 @@
             pnlTop.CustomizableEdges = customizableEdges4;
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
+            pnlTop.Margin = new Padding(4);
             pnlTop.Name = "pnlTop";
-            pnlTop.ShadowDecoration.CustomizableEdges = customizableEdges5;
-            pnlTop.Size = new Size(847, 50);
+            pnlTop.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            pnlTop.Size = new Size(1059, 62);
             pnlTop.TabIndex = 0;
             pnlTop.Paint += pnlTop_Paint;
             // 
@@ -72,7 +71,7 @@
             // 
             guna2CirclePictureBox1.Image = (Image)resources.GetObject("guna2CirclePictureBox1.Image");
             guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(610, 9);
+            guna2CirclePictureBox1.Location = new Point(670, 15);
             guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges1;
             guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
@@ -85,12 +84,12 @@
             // 
             lblTitulo.BackColor = Color.Transparent;
             lblTitulo.ForeColor = Color.FromArgb(205, 214, 244);
-            lblTitulo.Location = new Point(285, 12);
+            lblTitulo.Location = new Point(356, 15);
+            lblTitulo.Margin = new Padding(4);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(261, 22);
+            lblTitulo.Size = new Size(307, 27);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Sistema Digital de Votación Estudiantil";
-            lblTitulo.Click += guna2HtmlLabel1_Click;
             // 
             // btnRegresar
             // 
@@ -102,6 +101,7 @@
             btnRegresar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btnRegresar.FillColor = Color.FromArgb(230, 81, 0);
             btnRegresar.Font = new Font("Segoe UI", 9F);
+            btnRegresar.ForeColor = Color.White;
             btnRegresar.Location = new Point(12, 6);
             btnRegresar.Name = "btnRegresar";
             btnRegresar.ShadowDecoration.CustomizableEdges = customizableEdges3;
@@ -112,24 +112,26 @@
             // 
             // pnlMain
             // 
-            pnlMain.CustomizableEdges = customizableEdges6;
+            pnlMain.CustomizableEdges = customizableEdges5;
             pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 50);
+            pnlMain.Location = new Point(0, 62);
+            pnlMain.Margin = new Padding(4);
             pnlMain.Name = "pnlMain";
-            pnlMain.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            pnlMain.Size = new Size(847, 400);
+            pnlMain.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            pnlMain.Size = new Size(1059, 500);
             pnlMain.TabIndex = 1;
             pnlMain.Paint += pnlMain_Paint;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(40, 42, 54);
-            ClientSize = new Size(847, 450);
+            ClientSize = new Size(1059, 562);
             Controls.Add(pnlMain);
             Controls.Add(pnlTop);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;

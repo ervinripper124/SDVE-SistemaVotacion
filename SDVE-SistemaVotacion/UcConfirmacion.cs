@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using SDVE_SistemaVotacion.Services;
+using SDVE_SistemaVotacion.Models;
 
 namespace SDVE_SistemaVotacion
 {
@@ -72,7 +74,43 @@ namespace SDVE_SistemaVotacion
             lblEnviar.MouseUp += pbEnviar_MouseUp;
             lblEnviar.MouseLeave += pbEnviar_MouseLeave;
 
-            CancelarEnvio(); // Inicializa texto, color y centrado en pantalla
+            CancelarEnvio();
+        }
+
+        private void btnEnviar_Click(object sender, EventArgs e)
+        {
+            ProcesarRegistroVoto();
+        }
+
+        private void ProcesarRegistroVoto()
+        {
+            Form1 ventanaPrincipal = this.ParentForm as Form1;
+            if (ventanaPrincipal == null) return;
+
+            Alumno? alumno = ventanaPrincipal.AlumnoActual;
+            if (alumno == null)
+            {
+                MessageBox.Show("Se perdió la identificación del alumno. Vuelve a comenzar.", "Sesión no válida",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ventanaPrincipal.MostrarBienvenida();
+                return;
+            }
+
+            string folio;
+            try
+            {
+                folio = AlmacenVotos.Registrar(alumno, EstadoRecibido.ComoSelecciones());
+            }
+            catch (Exception ex) when (ex is InvalidOperationException || ex is IOException
+                                       || ex is UnauthorizedAccessException)
+            {
+                MessageBox.Show("No se pudo registrar el voto: " + ex.Message, "Error al guardar",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ventanaPrincipal.AlumnoActual = null;
+            ventanaPrincipal.Ir(new UcVotoRegistrado(folio), guardarEnHistorial: false);
         }
 
         private void mostrarPaneles(UcPapeleta.EstadoDeSeleccion Estado)
@@ -121,7 +159,7 @@ namespace SDVE_SistemaVotacion
             {
                 progreso = 0;
                 pbEnviar.Value = 0;
-                lblEnviar.ForeColor = Color.White; // Texto blanco para contraste al llenar
+                lblEnviar.ForeColor = Color.White;
                 timerEnvio.Start();
             }
         }
@@ -142,7 +180,6 @@ namespace SDVE_SistemaVotacion
             progreso = 0;
             pbEnviar.Value = 0;
 
-            // Actualizar la etiqueta flotante (NO la barra)
             lblEnviar.Text = "Mantén presionado para enviar";
             lblEnviar.ForeColor = Color.White;
 
@@ -151,12 +188,11 @@ namespace SDVE_SistemaVotacion
 
         private void timerEnvio_Tick(object sender, EventArgs e)
         {
-            progreso += 2; 
+            progreso += 2;
 
             if (progreso <= 100)
             {
                 pbEnviar.Value = progreso;
-
             }
             else
             {
@@ -165,11 +201,8 @@ namespace SDVE_SistemaVotacion
                 lblEnviar.Text = "¡Voto Confirmado!";
                 CentrarTextoEnBarra();
 
-                Form1 principal = this.ParentForm as Form1;
-                if (principal != null)
-                {
-                    principal.Ir(new UcVotoRegistrado(), guardarEnHistorial: false);
-                }
+                // Llamamos al método centralizado para registrar el voto de forma segura
+                ProcesarRegistroVoto();
             }
         }
 
@@ -177,7 +210,6 @@ namespace SDVE_SistemaVotacion
         {
             if (pbEnviar != null && lblEnviar != null)
             {
-                // Como pbEnviar es el Padre, (0,0) es la esquina superior izquierda de la barra
                 lblEnviar.Location = new Point(
                     (pbEnviar.Width - lblEnviar.Width) / 2,
                     (pbEnviar.Height - lblEnviar.Height) / 2

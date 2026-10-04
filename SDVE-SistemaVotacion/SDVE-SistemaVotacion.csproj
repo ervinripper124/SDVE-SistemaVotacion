@@ -9,10 +9,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+	<ItemGroup>
+		<None Update="Datos\padron.csv">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.8" />
     <PackageReference Include="ScottPlot.WinForms" Version="5.1.59" />
     <PackageReference Include="Svg" Version="3.4.8" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.10.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +50,10 @@
     <None Update="fonts\InstrumentSans-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Datos\" />
   </ItemGroup>
 
 </Project>

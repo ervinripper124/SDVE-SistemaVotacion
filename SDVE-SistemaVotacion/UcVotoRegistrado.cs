@@ -16,6 +16,14 @@ namespace SDVE_SistemaVotacion
             InitializeComponent();
         }
 
+        private readonly string folio;
+
+        public UcVotoRegistrado(string folio)
+        {
+            InitializeComponent();
+            this.folio = folio;
+        }
+
         private void UcVotoRegistrado_Load(object sender, EventArgs e)
         {
             // 1. Título de Confirmación
@@ -23,8 +31,8 @@ namespace SDVE_SistemaVotacion
             guna2HtmlLabel1.Font = HelperFuentes.BricolageBold(18f);
             guna2HtmlLabel1.ForeColor = Color.FromArgb(10, 25, 49); // Azul UAA
 
-            // 2. Generar Folio Único
-            lblFolioVotar.Text = $"¡Gracias por votar!\nTu folio es: {GenerarFolio(8)}";
+            // 2. Folio real (el mismo que se guardó con los votos)
+            lblFolioVotar.Text = $"¡Gracias por votar!\nTu folio es: {folio}";
             lblFolioVotar.Font = HelperFuentes.BricolageBold(12f);
             lblFolioVotar.ForeColor = Color.FromArgb(230, 81, 0); // Naranja Flama UAA
 
@@ -42,20 +50,6 @@ namespace SDVE_SistemaVotacion
             timerCuentaRegresiva.Interval = 100;
             tickActual = totalTicks;
             timerCuentaRegresiva.Start();
-        }
-
-        public static string GenerarFolio(int longitud = 8)
-        {
-            const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            char[] resultado = new char[longitud];
-
-            for (int i = 0; i < longitud; i++)
-            {
-                int indice = RandomNumberGenerator.GetInt32(caracteres.Length);
-                resultado[i] = caracteres[indice];
-            }
-
-            return new string(resultado);
         }
 
         private void timerCuentaRegresiva_Tick(object sender, EventArgs e)
@@ -76,8 +70,7 @@ namespace SDVE_SistemaVotacion
                 Form1 ventanaPrincipal = this.ParentForm as Form1;
                 if (ventanaPrincipal != null)
                 {
-                    // Regresa a bienvenida sin guardar en el historial
-                    ventanaPrincipal.Ir(new UcBienvenida(), guardarEnHistorial: false);
+                    ventanaPrincipal.MostrarBienvenida();
                 }
             }
         }

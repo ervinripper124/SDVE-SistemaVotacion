@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SDVE_SistemaVotacion.Models;
+using SDVE_SistemaVotacion.Services;
 
 namespace SDVE_SistemaVotacion
 {
@@ -20,6 +22,22 @@ namespace SDVE_SistemaVotacion
             public string candidatoSociedad;
             public string candidatoConsejoU;
             public string candidatoConsejoR;
+
+            public bool otroSociedad;
+            public bool otroConsejoU;
+            public bool otroConsejoR;
+
+            public List<SeleccionVoto> ComoSelecciones()
+            {
+                var lista = new List<SeleccionVoto>();
+                if (!string.IsNullOrWhiteSpace(candidatoSociedad))
+                    lista.Add(new SeleccionVoto(TipoConvocatoria.SociedadDeAlumnos, candidatoSociedad, otroSociedad));
+                if (!string.IsNullOrWhiteSpace(candidatoConsejoU))
+                    lista.Add(new SeleccionVoto(TipoConvocatoria.ConsejoUniversitario, candidatoConsejoU, otroConsejoU));
+                if (!string.IsNullOrWhiteSpace(candidatoConsejoR))
+                    lista.Add(new SeleccionVoto(TipoConvocatoria.ConsejoDeRepresentantes, candidatoConsejoR, otroConsejoR));
+                return lista;
+            }
         }
 
         bool selSociedad = false;
@@ -49,8 +67,25 @@ namespace SDVE_SistemaVotacion
         private void UcPapeleta_Load(object sender, EventArgs e)
         {
             lblTitulo.Font = HelperFuentes.BricolageBold(12f);
+            Alumno? alumno = (this.ParentForm as Form1)?.AlumnoActual;
+            if (alumno == null) return;
 
+            if (alumno.HaVotadoEn(TipoConvocatoria.SociedadDeAlumnos))
+                Bloquear(pnlSelSociedadDeAlumnos, guna2HtmlLabel1);
+            if (alumno.HaVotadoEn(TipoConvocatoria.ConsejoUniversitario))
+                Bloquear(pnlConsejoUniversitario, guna2HtmlLabel2);
+            if (alumno.HaVotadoEn(TipoConvocatoria.ConsejoDeRepresentantes))
+                Bloquear(pnlConsejoDeRepresentantes, guna2HtmlLabel3);
         }
+
+        private static void Bloquear(Guna.UI2.WinForms.Guna2ShadowPanel panel, Guna.UI2.WinForms.Guna2HtmlLabel titulo)
+        {
+            panel.FillColor = Color.FromArgb(225, 225, 225);
+            panel.Enabled = false;
+            titulo.ForeColor = Color.Gray;
+            titulo.Text += "  (ya votaste)";
+        }
+
         private void actualizarSeleccion()
         {
             int contador = 0;
