@@ -47,10 +47,9 @@
             // 
             lblTitulo.BackColor = Color.Transparent;
             lblTitulo.ForeColor = Color.FromArgb(10, 25, 49);
-            lblTitulo.Location = new Point(364, 39);
-            lblTitulo.Margin = new Padding(4);
+            lblTitulo.Location = new Point(291, 31);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(307, 27);
+            lblTitulo.Size = new Size(261, 22);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Sistema Digital de Votación Estudiantil";
             lblTitulo.TextAlignment = ContentAlignment.TopCenter;
@@ -59,10 +58,9 @@
             // 
             lbSubtitulo.BackColor = Color.Transparent;
             lbSubtitulo.ForeColor = Color.FromArgb(107, 114, 128);
-            lbSubtitulo.Location = new Point(301, 132);
-            lbSubtitulo.Margin = new Padding(4);
+            lbSubtitulo.Location = new Point(241, 106);
             lbSubtitulo.Name = "lbSubtitulo";
-            lbSubtitulo.Size = new Size(437, 27);
+            lbSubtitulo.Size = new Size(374, 22);
             lbSubtitulo.TabIndex = 1;
             lbSubtitulo.Text = "Selecciona comenzar para iniciar el proceso de elección";
             // 
@@ -77,11 +75,10 @@
             btnComenzarVotacion.FillColor = Color.FromArgb(230, 81, 0);
             btnComenzarVotacion.Font = new Font("Segoe UI", 9F);
             btnComenzarVotacion.ForeColor = Color.White;
-            btnComenzarVotacion.Location = new Point(364, 381);
-            btnComenzarVotacion.Margin = new Padding(4);
+            btnComenzarVotacion.Location = new Point(291, 305);
             btnComenzarVotacion.Name = "btnComenzarVotacion";
             btnComenzarVotacion.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnComenzarVotacion.Size = new Size(350, 62);
+            btnComenzarVotacion.Size = new Size(280, 50);
             btnComenzarVotacion.TabIndex = 2;
             btnComenzarVotacion.Text = "Comenzar Votacion";
             btnComenzarVotacion.Click += btnComenzarVotacion_Click;
@@ -91,14 +88,14 @@
             guna2PictureBox1.CustomizableEdges = customizableEdges3;
             guna2PictureBox1.Image = (Image)resources.GetObject("guna2PictureBox1.Image");
             guna2PictureBox1.ImageRotate = 0F;
-            guna2PictureBox1.Location = new Point(364, 109);
-            guna2PictureBox1.Margin = new Padding(4);
+            guna2PictureBox1.Location = new Point(288, 106);
             guna2PictureBox1.Name = "guna2PictureBox1";
             guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2PictureBox1.Size = new Size(354, 265);
+            guna2PictureBox1.Size = new Size(283, 212);
             guna2PictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             guna2PictureBox1.TabIndex = 3;
             guna2PictureBox1.TabStop = false;
+            guna2PictureBox1.Click += guna2PictureBox1_Click;
             // 
             // btnResultados
             // 
@@ -111,18 +108,17 @@
             btnResultados.FillColor = Color.FromArgb(230, 81, 0);
             btnResultados.Font = new Font("Segoe UI", 9F);
             btnResultados.ForeColor = Color.White;
-            btnResultados.Location = new Point(845, 425);
-            btnResultados.Margin = new Padding(4);
+            btnResultados.Location = new Point(691, 345);
             btnResultados.Name = "btnResultados";
             btnResultados.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnResultados.Size = new Size(200, 62);
+            btnResultados.Size = new Size(145, 45);
             btnResultados.TabIndex = 4;
-            btnResultados.Text = "Mostrar Resultados";
+            btnResultados.Text = "Resultados";
             btnResultados.Click += btnResultados_Click_1;
             // 
             // UcBienvenida
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 246, 249);
             Controls.Add(btnResultados);
@@ -130,9 +126,8 @@
             Controls.Add(lbSubtitulo);
             Controls.Add(lblTitulo);
             Controls.Add(guna2PictureBox1);
-            Margin = new Padding(4);
             Name = "UcBienvenida";
-            Size = new Size(1059, 500);
+            Size = new Size(847, 400);
             Load += UcBienvenida_Load;
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             ResumeLayout(false);

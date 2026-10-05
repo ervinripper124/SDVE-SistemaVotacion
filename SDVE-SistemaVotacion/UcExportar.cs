@@ -116,5 +116,10 @@ namespace SDVE_SistemaVotacion
                 parent.Ir(g);
             }
         }
+
+        private void panelExportar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

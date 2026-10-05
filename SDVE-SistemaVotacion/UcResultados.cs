@@ -23,11 +23,43 @@ namespace SDVE_SistemaVotacion
         {
             InitializeComponent();
 
-            valorTotalVotos = CrearValor(guna2Panel3, lTotalVotos);
-            valorOpcionLider = CrearValor(pnlOpcionLider, lOpcionLider);
-            valorNoRegistrados = CrearValor(pnlVotosNulos, lVotosNulos);
+            // 1. Paleta de colores institucionales
+            Color colorTextoPrincipal = Color.White;
+            Color colorTextoSecundario = Color.Cornsilk;
+            Color amarilloUAA = Color.FromArgb(255, 204, 0);
+
+            // 2. Títulos principales (Ajustados para no chocar)
+            lTitulo.Font = HelperFuentes.BricolageBold(15f);
+            lTitulo.ForeColor = colorTextoPrincipal;
+
+            lSeleccionCategoria.Font = HelperFuentes.BricolageBold(12f);
+            lSeleccionCategoria.ForeColor = colorTextoPrincipal;
+            cbCategoria.Font = HelperFuentes.InstrumentRegular(11f);
+
+            // Anclamos el combo y su texto a la derecha para que no se superpongan con el título
+            cbCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lSeleccionCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbCategoria.Left = pnlResultadosGenerales.Width - cbCategoria.Width - 10;
+            lSeleccionCategoria.Left = cbCategoria.Left - lSeleccionCategoria.Width - 10;
+
+            // 3. Tipografía para los subtítulos de las métricas
+            Font fuenteMetricas = HelperFuentes.BricolageBold(11f);
+            lTotalVotos.Font = fuenteMetricas;
+            lTotalVotos.ForeColor = colorTextoSecundario;
+            lOpcionLider.Font = fuenteMetricas;
+            lOpcionLider.ForeColor = colorTextoSecundario;
+            lVotosNulos.Font = fuenteMetricas;
+            lVotosNulos.ForeColor = colorTextoSecundario;
+
+            // 4. Valores gigantes con el Amarillo UAA
+            valorTotalVotos = CrearValor(guna2Panel3, amarilloUAA);
+            valorOpcionLider = CrearValor(pnlOpcionLider, amarilloUAA);
+            valorNoRegistrados = CrearValor(pnlVotosNulos, amarilloUAA);
 
             lVotosNulos.Text = "No Registrados";
+
+            lFecha.Font = HelperFuentes.InstrumentRegular(10f);
+            lFecha.ForeColor = colorTextoSecundario;
 
             PrepararTabla();
 
@@ -52,38 +84,25 @@ namespace SDVE_SistemaVotacion
             try
             {
                 todos = AlmacenVotos.ObtenerTodos().ToList();
-
                 IEnumerable<Voto> votos = todos;
 
                 if (filtro != null)
                     votos = votos.Where(v => v.Convocatoria == filtro.Value);
 
-                resumen = CalculoResultados.Calcular(
-                    votos,
-                    ListaOficial.Candidatos);
+                resumen = CalculoResultados.Calcular(votos, ListaOficial.Candidatos);
             }
-            catch (Exception ex) when (
-                ex is IOException ||
-                ex is InvalidDataException ||
-                ex is UnauthorizedAccessException)
+            catch (Exception ex)
             {
-                MessageBox.Show(
-                    "No se pudieron leer los votos: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             tabla.Rows.Clear();
-
             var filasParaMostrar = resumen.Filas.AsEnumerable();
 
             if (filtro != null)
             {
-                filasParaMostrar = filasParaMostrar
-                    .Where(f => f.Convocatoria == filtro.Value);
+                filasParaMostrar = filasParaMostrar.Where(f => f.Convocatoria == filtro.Value);
             }
 
             foreach (FilaResultado f in filasParaMostrar)
@@ -99,58 +118,51 @@ namespace SDVE_SistemaVotacion
             int total;
             int votosNoReg;
             FilaResultado? lider;
-
             int totalAlumnos = AlmacenPadron.Alumnos.Count();
             int totalConvocatorias = CalculoResultados.Orden.Count();
 
             if (filtro == null)
             {
-                // Todas las convocatorias (globales): 
-                // Suma total de boletas faltantes en todas las categorías (Alumnos * Convocatorias - Votos emitidos)
                 int maxVotosPosibles = totalAlumnos * totalConvocatorias;
                 votosNoReg = Math.Max(0, maxVotosPosibles - resumen.TotalVotos);
-
                 total = resumen.TotalVotos;
                 lider = resumen.Lider;
             }
             else
             {
-                // Una categoría específica
                 var votosFiltro = todos.Where(v => v.Convocatoria == filtro.Value).ToList();
                 int foliosUnicosFiltro = votosFiltro.Select(v => v.Folio).Distinct().Count();
                 votosNoReg = Math.Max(0, totalAlumnos - foliosUnicosFiltro);
 
-                var filas = resumen.Filas
-                    .Where(f => f.Convocatoria == filtro.Value)
-                    .ToList();
-
+                var filas = resumen.Filas.Where(f => f.Convocatoria == filtro.Value).ToList();
                 total = filas.Sum(f => f.Votos);
-
-                lider = filas
-                    .OrderByDescending(f => f.Votos)
-                    .FirstOrDefault();
+                lider = filas.OrderByDescending(f => f.Votos).FirstOrDefault();
             }
 
             valorTotalVotos.Text = total.ToString();
             valorNoRegistrados.Text = votosNoReg.ToString();
-
-            valorOpcionLider.Text = lider == null
-                ? "Sin votos aún"
-                : lider.Candidato + " (" + lider.Votos + ")";
-
-            lFecha.Text =
-                "Ultima Actualizacion: " +
-                resumen.Fecha.ToString("dd/MM/yyyy HH:mm:ss");
+            valorOpcionLider.Text = lider == null ? "Sin votos aún" : lider.Candidato + " (" + lider.Votos + ")";
+            lFecha.Text = "Ultima Actualizacion: " + resumen.Fecha.ToString("dd/MM/yyyy HH:mm:ss");
         }
 
         private void PrepararTabla()
         {
             txtPosicion.Visible = false;
 
+            // Ocultamos permanentemente los paneles falsos que se cortaban
+            pnlPosicion.Visible = false;
+            pnlCandidato.Visible = false;
+            pnlCategoria.Visible = false;
+            pnlTotalVotos.Visible = false;
+            pnlPorcentaje.Visible = false;
+
+            dvgResultados.BackColor = Color.FromArgb(40, 42, 54);
+
             tabla = new DataGridView
             {
-                Location = txtPosicion.Location,
-                Size = new Size(dvgResultados.Width, dvgResultados.Height - txtPosicion.Top - 6),
+                // La tabla ahora ocupa todo el espacio sin dejar huecos
+                Location = new Point(0, 0),
+                Size = new Size(dvgResultados.Width, dvgResultados.Height),
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
@@ -158,48 +170,70 @@ namespace SDVE_SistemaVotacion
                 AllowUserToResizeColumns = false,
                 AllowUserToResizeRows = false,
                 RowHeadersVisible = false,
-                ColumnHeadersVisible = false,
+
+                // ACTIVAMOS LOS ENCABEZADOS NATIVOS
+                ColumnHeadersVisible = true,
+                ColumnHeadersHeight = 45,
+                EnableHeadersVisualStyles = false,
+
                 MultiSelect = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 BorderStyle = BorderStyle.None,
                 CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
                 GridColor = Color.FromArgb(60, 63, 80),
                 BackgroundColor = Color.FromArgb(40, 42, 54),
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
+
+                // Hace que las columnas se estiren solas como liga, rellenando lo blanco
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             };
 
-            tabla.RowTemplate.Height = 32;
-            tabla.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            tabla.DefaultCellStyle.SelectionBackColor = Color.FromArgb(235, 242, 255);
-            tabla.DefaultCellStyle.SelectionForeColor = Color.Black;
+            // Damos diseño oscuro y tipografía Bricolage a los encabezados nativos
+            tabla.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(40, 42, 54);
+            tabla.ColumnHeadersDefaultCellStyle.ForeColor = Color.Cornsilk;
+            tabla.ColumnHeadersDefaultCellStyle.Font = HelperFuentes.BricolageBold(11f);
+            tabla.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            tabla.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            AgregarColumna("Posicion", 160);
-            AgregarColumna("Candidato", 317);
-            AgregarColumna("Categoria", 265);
-            AgregarColumna("TotalVotos", 160);
-            AgregarColumna("Porcentaje", 154);
+            // Damos diseño oscuro a las filas
+            tabla.DefaultCellStyle.Font = HelperFuentes.InstrumentRegular(12f);
+            tabla.DefaultCellStyle.ForeColor = Color.White;
+            tabla.DefaultCellStyle.BackColor = Color.FromArgb(40, 42, 54);
+            tabla.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            tabla.DefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 63, 80);
+            tabla.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            tabla.RowTemplate.Height = 38;
+
+            // Agregamos las columnas indicando su "Peso" (FillWeight) en lugar de un ancho fijo
+            AgregarColumna("Posicion", "Posición", 15);
+            AgregarColumna("Candidato", "Nombre del Candidato", 35);
+            AgregarColumna("Categoria", "Categoría", 25);
+            AgregarColumna("TotalVotos", "Total Votos", 15);
+            AgregarColumna("Porcentaje", "Porcentaje", 10);
 
             dvgResultados.Controls.Add(tabla);
+            tabla.BringToFront();
         }
 
-        private void AgregarColumna(string nombre, int ancho)
+        private void AgregarColumna(string id, string texto, int pesoFila)
         {
-            int indice = tabla.Columns.Add(nombre, nombre);
-            tabla.Columns[indice].Width = ancho;
+            int indice = tabla.Columns.Add(id, texto);
+            // Esto le dice a la columna qué porcentaje del espacio libre debe tomar
+            tabla.Columns[indice].FillWeight = pesoFila;
             tabla.Columns[indice].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
-        private static Label CrearValor(Control tarjeta, Control titulo)
+        private static Label CrearValor(Control tarjeta, Color colorTexto)
         {
             var valor = new Label
             {
                 AutoSize = false,
                 AutoEllipsis = true,
                 Dock = DockStyle.Bottom,
-                Height = 38,
+                Height = 35,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Segoe UI", 14F, FontStyle.Bold),
-                ForeColor = titulo.ForeColor,
+                Font = HelperFuentes.BricolageBold(16f),
+                ForeColor = colorTexto,
                 BackColor = Color.Transparent,
                 Text = "0"
             };
@@ -209,16 +243,13 @@ namespace SDVE_SistemaVotacion
 
         private void CbCategoria_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (cbCategoria.SelectedIndex <= 0)
-                CargarResultados(null);
+            if (cbCategoria.SelectedIndex <= 0) CargarResultados(null);
             else
             {
                 var idx = cbCategoria.SelectedIndex - 1;
-                var tipo = Services.CalculoResultados.Orden.ElementAtOrDefault(idx);
-                if (tipo != null)
-                    CargarResultados(tipo);
-                else
-                    CargarResultados(null);
+                var tipo = CalculoResultados.Orden.ElementAtOrDefault(idx);
+                if (tipo != null) CargarResultados(tipo);
+                else CargarResultados(null);
             }
         }
 
@@ -238,9 +269,6 @@ namespace SDVE_SistemaVotacion
             }
         }
 
-        private void pnlFecha_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void pnlFecha_Paint(object sender, PaintEventArgs e) { }
     }
 }

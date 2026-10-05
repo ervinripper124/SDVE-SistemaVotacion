@@ -17,7 +17,7 @@ namespace SDVE_SistemaVotacion
         private readonly Guna2TextBox txtMatricula = new Guna2TextBox();
         private readonly Guna2HtmlLabel lblError = new Guna2HtmlLabel();
         private readonly Guna2Button btnContinuar = new Guna2Button();
-        private readonly Guna2Button btnVolver = new Guna2Button();
+   
 
         public UcIdentificacion()
         {
@@ -62,26 +62,18 @@ namespace SDVE_SistemaVotacion
             btnContinuar.Location = new Point(0, 200);
             btnContinuar.Text = "Continuar";
             btnContinuar.ForeColor = Color.White;
-            btnContinuar.FillColor = Color.FromArgb(94, 148, 255);
+            btnContinuar.FillColor = Color.FromArgb(230, 81, 0);
             btnContinuar.BorderRadius = 8;
             btnContinuar.Cursor = Cursors.Hand;
             btnContinuar.Click += (s, e) => Continuar();
 
-            btnVolver.Size = new Size(Ancho, 46);
-            btnVolver.Location = new Point(0, 270);
-            btnVolver.Text = "Volver";
-            btnVolver.ForeColor = Color.FromArgb(60, 60, 60);
-            btnVolver.FillColor = Color.FromArgb(245, 245, 245);
-            btnVolver.BorderRadius = 8;
-            btnVolver.Cursor = Cursors.Hand;
-            btnVolver.Click += (s, e) => Volver();
-
+            
             contenido.Controls.Add(lblTitulo);
             contenido.Controls.Add(lblSub);
             contenido.Controls.Add(txtMatricula);
             contenido.Controls.Add(lblError);
             contenido.Controls.Add(btnContinuar);
-            contenido.Controls.Add(btnVolver);
+            
             Controls.Add(contenido);
 
             Resize += (s, e) => Centrar();
@@ -95,7 +87,6 @@ namespace SDVE_SistemaVotacion
             lblError.Font = new Font(Font.FontFamily, 10f);
             txtMatricula.Font = new Font(Font.FontFamily, 15f);
             btnContinuar.Font = new Font(Font.FontFamily, 12f, FontStyle.Bold);
-            btnVolver.Font = new Font(Font.FontFamily, 11f);
             Centrar();
             txtMatricula.Focus();
         }
@@ -160,9 +151,7 @@ namespace SDVE_SistemaVotacion
                 return;
             }
 
-            DialogResult respuesta = MessageBox.Show("¿Eres " + alumno.Nombre + "?", "Confirmar identidad",
-                                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (respuesta != DialogResult.Yes) return;
+ 
 
             ventana.AlumnoActual = alumno;
             ventana.Ir(new UcPapeleta());

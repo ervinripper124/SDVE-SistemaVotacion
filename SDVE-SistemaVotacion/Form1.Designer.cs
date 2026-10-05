@@ -53,17 +53,16 @@
             // 
             // pnlTop
             // 
-            pnlTop.BackColor = Color.FromArgb(49, 50, 68);
+            pnlTop.BackColor = Color.FromArgb(10, 25, 49);
             pnlTop.Controls.Add(guna2CirclePictureBox1);
             pnlTop.Controls.Add(lblTitulo);
             pnlTop.Controls.Add(btnRegresar);
             pnlTop.CustomizableEdges = customizableEdges4;
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
-            pnlTop.Margin = new Padding(4);
             pnlTop.Name = "pnlTop";
             pnlTop.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            pnlTop.Size = new Size(1059, 62);
+            pnlTop.Size = new Size(847, 50);
             pnlTop.TabIndex = 0;
             pnlTop.Paint += pnlTop_Paint;
             // 
@@ -71,11 +70,12 @@
             // 
             guna2CirclePictureBox1.Image = (Image)resources.GetObject("guna2CirclePictureBox1.Image");
             guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(670, 15);
+            guna2CirclePictureBox1.Location = new Point(606, 12);
+            guna2CirclePictureBox1.Margin = new Padding(2);
             guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges1;
             guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox1.Size = new Size(34, 30);
+            guna2CirclePictureBox1.Size = new Size(27, 24);
             guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             guna2CirclePictureBox1.TabIndex = 1;
             guna2CirclePictureBox1.TabStop = false;
@@ -84,10 +84,9 @@
             // 
             lblTitulo.BackColor = Color.Transparent;
             lblTitulo.ForeColor = Color.FromArgb(205, 214, 244);
-            lblTitulo.Location = new Point(356, 15);
-            lblTitulo.Margin = new Padding(4);
+            lblTitulo.Location = new Point(285, 12);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(307, 27);
+            lblTitulo.Size = new Size(261, 22);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Sistema Digital de Votación Estudiantil";
             // 
@@ -102,10 +101,11 @@
             btnRegresar.FillColor = Color.FromArgb(230, 81, 0);
             btnRegresar.Font = new Font("Segoe UI", 9F);
             btnRegresar.ForeColor = Color.White;
-            btnRegresar.Location = new Point(12, 6);
+            btnRegresar.Location = new Point(11, 10);
+            btnRegresar.Margin = new Padding(2);
             btnRegresar.Name = "btnRegresar";
             btnRegresar.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            btnRegresar.Size = new Size(59, 33);
+            btnRegresar.Size = new Size(47, 26);
             btnRegresar.TabIndex = 0;
             btnRegresar.Text = " ←";
             btnRegresar.Click += btnRegresar_Click;
@@ -114,24 +114,22 @@
             // 
             pnlMain.CustomizableEdges = customizableEdges5;
             pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 62);
-            pnlMain.Margin = new Padding(4);
+            pnlMain.Location = new Point(0, 50);
             pnlMain.Name = "pnlMain";
             pnlMain.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            pnlMain.Size = new Size(1059, 500);
+            pnlMain.Size = new Size(847, 400);
             pnlMain.TabIndex = 1;
             pnlMain.Paint += pnlMain_Paint;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(40, 42, 54);
-            ClientSize = new Size(1059, 562);
+            ClientSize = new Size(847, 450);
             Controls.Add(pnlMain);
             Controls.Add(pnlTop);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;

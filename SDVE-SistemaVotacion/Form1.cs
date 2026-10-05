@@ -42,7 +42,7 @@ namespace SDVE_SistemaVotacion
 
         private void UcBienvenida_SolicitudMostrarResultados(object sender, EventArgs e)
         {
-            Ir(new UcResultados());
+            Ir(new UcContenedor());
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -64,19 +64,20 @@ namespace SDVE_SistemaVotacion
 
         public void MostrarBienvenida()
         {
+            // 1. Limpiar datos del votante anterior y la pila
             AlumnoActual = null;
-
-            if (pantallaBienvenida == null)
-            {
-                pantallaBienvenida = new UcBienvenida();
-                pantallaBienvenida.SolicitudMostrarResultados += UcBienvenida_SolicitudMostrarResultados;
-            }
-
             historial.Clear();
-            Ir(pantallaBienvenida, guardarEnHistorial: false);
 
-            lblTitulo.Font = HelperFuentes.BricolageBold(12f);
-            CentrarTituloHeader();
+            // 2. Crear una instancia NUEVA y mandarla a tu método Ir
+            // Esto evita que los controles se muevan de lugar
+            Ir(new UcBienvenida(), guardarEnHistorial: false);
+
+            // 3. Asegurar el diseño del encabezado
+            if (lblTitulo != null)
+            {
+                lblTitulo.Font = HelperFuentes.BricolageBold(12f);
+                CentrarTituloHeader();
+            }
         }
 
         public void Ir(UserControl u, bool guardarEnHistorial = true)
@@ -93,7 +94,7 @@ namespace SDVE_SistemaVotacion
             u.Dock = DockStyle.Fill;
             pnlMain.Controls.Add(u);
 
-            pnlTop.Visible = !(u is UcResultados || u is UcGraficas || u is UcExportar);
+            pnlTop.Visible = !(u is UcResultados || u is UcGraficas || u is UcExportar || u is UcContenedor);
 
             if (u is UcBienvenida ucBienvenida)
             {
@@ -139,7 +140,7 @@ namespace SDVE_SistemaVotacion
                 {
                     Ir(new UcPapeleta());
                 }
-                else if (pantallaActual is UcPapeleta || pantallaActual is UcConfirmacion)
+                else if (pantallaActual is UcPapeleta || pantallaActual is UcConfirmacion || pantallaActual is UcIdentificacion)
                 {
                     MostrarBienvenida();
                 }

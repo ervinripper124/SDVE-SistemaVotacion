@@ -19,7 +19,7 @@ namespace SDVE_SistemaVotacion
             lblTitulo.Font = HelperFuentes.BricolageBold(22f);
             lbSubtitulo.Font = HelperFuentes.InstrumentRegular(12f);
             btnComenzarVotacion.Font = HelperFuentes.BricolageBold(14f);
-            btnResultados.Font = HelperFuentes.InstrumentRegular(11f);
+            btnResultados.Font = HelperFuentes.BricolageBold(9f);
 
             btnResultados.Enabled = true;
 
@@ -70,6 +70,11 @@ namespace SDVE_SistemaVotacion
         private void btnResultados_Click_1(object sender, EventArgs e)
         {
             SolicitudMostrarResultados?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
