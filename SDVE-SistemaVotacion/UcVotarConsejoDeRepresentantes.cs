@@ -226,7 +226,8 @@ namespace SDVE_SistemaVotacion
                 Candidato4 = true;
                 pnlOtro.FillColor = Color.FromArgb(10, 25, 49);             // Azul UAA
                 circulo4.FillColor = Color.FromArgb(230, 81, 0);         // Naranja Flama
-                
+
+                txtOtro.Focus();
             }
 
         }

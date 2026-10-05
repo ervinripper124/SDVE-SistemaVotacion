@@ -92,6 +92,7 @@
             circulo1.Size = new Size(40, 40);
             circulo1.TabIndex = 3;
             circulo1.TabStop = false;
+            circulo1.Click += pnlCandidato1_Click;
             // 
             // lblCandidato1Sociedad
             // 
@@ -128,6 +129,7 @@
             circulo2.Size = new Size(40, 40);
             circulo2.TabIndex = 4;
             circulo2.TabStop = false;
+            circulo2.Click += pnlCandidato2_Click;
             // 
             // lblCandidato2Sociedad
             // 
@@ -165,6 +167,7 @@
             circulo3.Size = new Size(40, 40);
             circulo3.TabIndex = 5;
             circulo3.TabStop = false;
+            circulo3.Click += pnlCandidato3_Click;
             // 
             // lblCandidato3Sociedad
             // 
@@ -201,6 +204,7 @@
             circulo4.Size = new Size(40, 40);
             circulo4.TabIndex = 6;
             circulo4.TabStop = false;
+            circulo4.Click += txtOtro_Click;
             // 
             // txtOtro
             // 

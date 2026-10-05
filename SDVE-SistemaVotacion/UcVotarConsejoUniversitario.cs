@@ -56,7 +56,7 @@ namespace SDVE_SistemaVotacion
                 {
                     EstadoRecibido.candidatoConsejoU = txtOtro.Text;
                 }
-            } 
+            }
             else
             {
                 if (Seleccion == 1) EstadoRecibido.candidatoConsejoU = lblCandidato1ConsejoU.Text;
@@ -142,7 +142,7 @@ namespace SDVE_SistemaVotacion
                 Candidato4 = false;
                 pnlOtro.FillColor = Color.White;
                 circulo4.FillColor = Color.FromArgb(224, 224, 224);
-               
+
                 txtOtro.Text = OtroCandidato;
             }
             else if (numpanel == 2)
@@ -169,7 +169,7 @@ namespace SDVE_SistemaVotacion
                 Candidato4 = false;
                 pnlOtro.FillColor = Color.White;
                 circulo4.FillColor = Color.FromArgb(224, 224, 224);
-               
+
 
                 txtOtro.Text = OtroCandidato;
             }
@@ -197,7 +197,7 @@ namespace SDVE_SistemaVotacion
                 Candidato4 = false;
                 pnlOtro.FillColor = Color.White;
                 circulo4.FillColor = Color.FromArgb(224, 224, 224);
-                
+
 
                 txtOtro.Text = OtroCandidato;
             }
@@ -225,12 +225,16 @@ namespace SDVE_SistemaVotacion
                 Candidato4 = true;
                 pnlOtro.FillColor = Color.FromArgb(10, 25, 49);             // Azul UAA
                 circulo4.FillColor = Color.FromArgb(230, 81, 0);         // Naranja Flama
-               
+
 
                 txtOtro.Focus();
             }
 
         }
 
+        private void txtOtro_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
