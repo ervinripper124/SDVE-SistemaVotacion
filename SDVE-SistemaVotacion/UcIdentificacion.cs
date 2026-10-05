@@ -14,7 +14,7 @@ namespace SDVE_SistemaVotacion
         private readonly Panel contenido = new Panel();
         private readonly Guna2HtmlLabel lblTitulo = new Guna2HtmlLabel();
         private readonly Guna2HtmlLabel lblSub = new Guna2HtmlLabel();
-        private readonly Guna2TextBox txtMatricula = new Guna2TextBox();
+        private readonly Guna2TextBox txtId = new Guna2TextBox();
         private readonly Guna2HtmlLabel lblError = new Guna2HtmlLabel();
         private readonly Guna2Button btnContinuar = new Guna2Button();
    
@@ -35,20 +35,20 @@ namespace SDVE_SistemaVotacion
             lblSub.AutoSize = false;
             lblSub.BackColor = Color.Transparent;
             lblSub.ForeColor = Color.DimGray;
-            lblSub.Text = "Escribe tu matrícula para comenzar.";
+            lblSub.Text = "Escribe tu Id para comenzar.";
             lblSub.TextAlignment = ContentAlignment.MiddleCenter;
             lblSub.Size = new Size(Ancho, 30);
             lblSub.Location = new Point(0, 52);
 
-            txtMatricula.Size = new Size(Ancho, 54);
-            txtMatricula.Location = new Point(0, 100);
-            txtMatricula.PlaceholderText = "Matrícula";
-            txtMatricula.MaxLength = 30;
-            txtMatricula.BorderRadius = 8;
-            txtMatricula.TextAlign = HorizontalAlignment.Center;
-            txtMatricula.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtMatricula.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtMatricula.TextChanged += (s, e) => lblError.Text = string.Empty;
+            txtId.Size = new Size(Ancho, 54);
+            txtId.Location = new Point(0, 100);
+            txtId.PlaceholderText = "ID";
+            txtId.MaxLength = 30;
+            txtId.BorderRadius = 8;
+            txtId.TextAlign = HorizontalAlignment.Center;
+            txtId.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtId.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtId.TextChanged += (s, e) => lblError.Text = string.Empty;
 
             lblError.AutoSize = false;
             lblError.BackColor = Color.Transparent;
@@ -70,7 +70,7 @@ namespace SDVE_SistemaVotacion
             
             contenido.Controls.Add(lblTitulo);
             contenido.Controls.Add(lblSub);
-            contenido.Controls.Add(txtMatricula);
+            contenido.Controls.Add(txtId);
             contenido.Controls.Add(lblError);
             contenido.Controls.Add(btnContinuar);
             
@@ -85,16 +85,16 @@ namespace SDVE_SistemaVotacion
             lblTitulo.Font = new Font(Font.FontFamily, 22f, FontStyle.Bold);
             lblSub.Font = new Font(Font.FontFamily, 11f);
             lblError.Font = new Font(Font.FontFamily, 10f);
-            txtMatricula.Font = new Font(Font.FontFamily, 15f);
+            txtId.Font = new Font(Font.FontFamily, 15f);
             btnContinuar.Font = new Font(Font.FontFamily, 12f, FontStyle.Bold);
             Centrar();
-            txtMatricula.Focus();
+            txtId.Focus();
         }
 
-        /// <summary>Enter dentro del campo de matrícula equivale a pulsar "Continuar".</summary>
+        /// <summary>Enter dentro del campo de ID equivale a pulsar "Continuar".</summary>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter && txtMatricula.ContainsFocus)
+            if (keyData == Keys.Enter && txtId.ContainsFocus)
             {
                 Continuar();
                 return true;
@@ -120,17 +120,17 @@ namespace SDVE_SistemaVotacion
             Form1? ventana = FindForm() as Form1;
             if (ventana == null) return;
 
-            string matricula = txtMatricula.Text.Trim();
-            if (matricula.Length == 0)
+            string id = txtId.Text.Trim();
+            if (id.Length == 0)
             {
-                lblError.Text = "Escribe tu matrícula.";
+                lblError.Text = "Escribe tu ID.";
                 return;
             }
 
             Models.Alumno? alumno;
             try
             {
-                alumno = AlmacenPadron.Identificar(matricula);
+                alumno = AlmacenPadron.Identificar(id);
             }
             catch (Exception ex) when (ex is IOException || ex is InvalidDataException || ex is UnauthorizedAccessException)
             {

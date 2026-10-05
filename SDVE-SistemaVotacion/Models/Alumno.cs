@@ -8,7 +8,7 @@ namespace SDVE_SistemaVotacion.Models
 {
     public class Alumno
     {
-        public string Matricula { get; set; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
         public string Nombre { get; set; } = string.Empty;
         public string CentroUniversitario { get; set; } = string.Empty;
         public string Carrera { get; set; } = string.Empty;

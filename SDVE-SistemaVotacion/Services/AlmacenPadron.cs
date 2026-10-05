@@ -13,7 +13,7 @@ namespace SDVE_SistemaVotacion.Services
     /// </summary>
     public static class AlmacenPadron
     {
-        private static readonly string[] Columnas = { "Matricula", "Nombre", "Grupo", "Carrera", "CentroUniversitario" };
+        private static readonly string[] Columnas = { "Id", "Nombre", "Grupo", "Carrera", "CentroUniversitario" };
         private static readonly object Candado = new object();
 
         private static readonly JsonSerializerOptions Opciones = new JsonSerializerOptions
@@ -48,13 +48,13 @@ namespace SDVE_SistemaVotacion.Services
 
         public static int TotalElectores => Alumnos.Count;
 
-        /// <summary>Busca un alumno por matrícula (ignora espacios y mayúsculas). Null si no existe.</summary>
-        public static Alumno? Identificar(string? matricula)
+        /// <summary>Busca un alumno por ID (ignora espacios y mayúsculas). Null si no existe.</summary>
+        public static Alumno? Identificar(string? id)
         {
             lock (Candado)
             {
                 Cargar();
-                _indice.TryGetValue(Clave(matricula), out var alumno);
+                _indice.TryGetValue(Clave(id), out var alumno);
                 return alumno;
             }
         }
@@ -102,7 +102,7 @@ namespace SDVE_SistemaVotacion.Services
 
             var alumnos = LeerAlumnos();
             var indice = new Dictionary<string, Alumno>();
-            foreach (var a in alumnos) indice[Clave(a.Matricula)] = a;
+            foreach (var a in alumnos) indice[Clave(a.Id)] = a;
 
             AplicarEstado(indice);
 
@@ -117,21 +117,21 @@ namespace SDVE_SistemaVotacion.Services
 
             foreach (var fila in LectorCsv.Leer(RutaCsv, Columnas, Advertencias))
             {
-                string matricula = fila.Campos[0];
-                if (matricula.Length == 0)
+                string id = fila.Campos[0];
+                if (id.Length == 0)
                 {
-                    Advertencias.Add($"padron.csv: fila {fila.Numero} sin matrícula, se omitió.");
+                    Advertencias.Add($"padron.csv: fila {fila.Numero} sin ID, se omitió.");
                     continue;
                 }
-                if (!vistas.Add(Clave(matricula)))
+                if (!vistas.Add(Clave(id)))
                 {
-                    Advertencias.Add($"padron.csv: matrícula repetida '{matricula}' en la fila {fila.Numero}, se omitió.");
+                    Advertencias.Add($"padron.csv: ID repetido '{id}' en la fila {fila.Numero}, se omitió.");
                     continue;
                 }
 
                 alumnos.Add(new Alumno
                 {
-                    Matricula = matricula,
+                    Id = id,
                     Nombre = fila.Campos[1],
                     Grupo = fila.Campos[2],
                     Carrera = fila.Campos[3],
@@ -177,13 +177,13 @@ namespace SDVE_SistemaVotacion.Services
         {
             var estado = _alumnos!
                 .Where(a => a.ConvocatoriasVotadas.Count > 0)
-                .ToDictionary(a => Clave(a.Matricula), a => a.ConvocatoriasVotadas.ToList());
+                .ToDictionary(a => Clave(a.Id), a => a.ConvocatoriasVotadas.ToList());
 
             string temporal = RutaEstado + ".tmp";
             File.WriteAllText(temporal, JsonSerializer.Serialize(estado, Opciones));
             File.Move(temporal, RutaEstado, overwrite: true);
         }
 
-        private static string Clave(string? matricula) => (matricula ?? string.Empty).Trim().ToUpperInvariant();
+        private static string Clave(string? id) => (id ?? string.Empty).Trim().ToUpperInvariant();
     }
 }
