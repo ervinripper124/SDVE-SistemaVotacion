@@ -2,15 +2,8 @@
 {
     partial class UcContenedor
     {
-        /// <summary> 
-        /// Variable del diseñador necesaria.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Limpiar los recursos que se estén usando.
-        /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,15 +15,11 @@
 
         #region Código generado por el Diseñador de componentes
 
-        /// <summary> 
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
-        /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcContenedor));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -39,96 +28,43 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcContenedor));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlTopContenedor = new Guna.UI2.WinForms.Guna2Panel();
-            guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            btnExportar = new Guna.UI2.WinForms.Guna2Button();
-            btnGraficas = new Guna.UI2.WinForms.Guna2Button();
             btnResultados = new Guna.UI2.WinForms.Guna2Button();
-            guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            btnGraficas = new Guna.UI2.WinForms.Guna2Button();
+            btnExportar = new Guna.UI2.WinForms.Guna2Button();
             btnRegresar = new Guna.UI2.WinForms.Guna2Button();
+            guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            pnlIndicador = new Guna.UI2.WinForms.Guna2ShadowPanel();
             pnlWork = new Guna.UI2.WinForms.Guna2ShadowPanel();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             pnlTopContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnlTopContenedor
             // 
             pnlTopContenedor.BackColor = Color.FromArgb(10, 25, 49);
-            pnlTopContenedor.Controls.Add(guna2CirclePictureBox2);
-            pnlTopContenedor.Controls.Add(btnExportar);
-            pnlTopContenedor.Controls.Add(btnGraficas);
             pnlTopContenedor.Controls.Add(btnResultados);
-            pnlTopContenedor.Controls.Add(guna2CirclePictureBox1);
+            pnlTopContenedor.Controls.Add(btnGraficas);
+            pnlTopContenedor.Controls.Add(btnExportar);
             pnlTopContenedor.Controls.Add(btnRegresar);
-            pnlTopContenedor.CustomizableEdges = customizableEdges11;
+            pnlTopContenedor.Controls.Add(guna2CirclePictureBox2);
+            pnlTopContenedor.Controls.Add(pnlIndicador);
+            pnlTopContenedor.CustomizableEdges = customizableEdges10;
             pnlTopContenedor.Dock = DockStyle.Top;
             pnlTopContenedor.Location = new Point(0, 0);
             pnlTopContenedor.Name = "pnlTopContenedor";
-            pnlTopContenedor.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            pnlTopContenedor.ShadowDecoration.CustomizableEdges = customizableEdges11;
             pnlTopContenedor.Size = new Size(847, 50);
             pnlTopContenedor.TabIndex = 1;
-            pnlTopContenedor.Paint += pnlTopContenedor_Paint;
-            // 
-            // guna2CirclePictureBox2
-            // 
-            guna2CirclePictureBox2.Image = (Image)resources.GetObject("guna2CirclePictureBox2.Image");
-            guna2CirclePictureBox2.ImageRotate = 0F;
-            guna2CirclePictureBox2.Location = new Point(807, 10);
-            guna2CirclePictureBox2.Margin = new Padding(2);
-            guna2CirclePictureBox2.Name = "guna2CirclePictureBox2";
-            guna2CirclePictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges1;
-            guna2CirclePictureBox2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox2.Size = new Size(27, 24);
-            guna2CirclePictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox2.TabIndex = 2;
-            guna2CirclePictureBox2.TabStop = false;
-            // 
-            // btnExportar
-            // 
-            btnExportar.BorderRadius = 6;
-            btnExportar.CustomizableEdges = customizableEdges2;
-            btnExportar.DisabledState.BorderColor = Color.DarkGray;
-            btnExportar.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnExportar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnExportar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnExportar.FillColor = Color.Gold;
-            btnExportar.Font = new Font("Segoe UI", 9F);
-            btnExportar.ForeColor = Color.FromArgb(10, 25, 49);
-            btnExportar.Location = new Point(595, 10);
-            btnExportar.Name = "btnExportar";
-            btnExportar.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            btnExportar.Size = new Size(125, 26);
-            btnExportar.TabIndex = 4;
-            btnExportar.Text = "Exportar";
-            btnExportar.Click += btnExportar_Click;
-            // 
-            // btnGraficas
-            // 
-            btnGraficas.BorderRadius = 6;
-            btnGraficas.CustomizableEdges = customizableEdges4;
-            btnGraficas.DisabledState.BorderColor = Color.DarkGray;
-            btnGraficas.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnGraficas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnGraficas.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnGraficas.FillColor = Color.Gold;
-            btnGraficas.Font = new Font("Segoe UI", 9F);
-            btnGraficas.ForeColor = Color.FromArgb(10, 25, 49);
-            btnGraficas.Location = new Point(363, 10);
-            btnGraficas.Name = "btnGraficas";
-            btnGraficas.ShadowDecoration.CustomizableEdges = customizableEdges5;
-            btnGraficas.Size = new Size(125, 26);
-            btnGraficas.TabIndex = 3;
-            btnGraficas.Text = "Graficas";
-            btnGraficas.Click += btnGraficas_Click;
             // 
             // btnResultados
             // 
+            btnResultados.BackColor = Color.Transparent;
             btnResultados.BorderRadius = 6;
-            btnResultados.CustomizableEdges = customizableEdges6;
+            btnResultados.CustomizableEdges = customizableEdges1;
             btnResultados.DisabledState.BorderColor = Color.DarkGray;
             btnResultados.DisabledState.CustomBorderColor = Color.DarkGray;
             btnResultados.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -136,32 +72,58 @@
             btnResultados.FillColor = Color.Gold;
             btnResultados.Font = new Font("Segoe UI", 9F);
             btnResultados.ForeColor = Color.FromArgb(10, 25, 49);
-            btnResultados.Location = new Point(146, 10);
+            btnResultados.Location = new Point(130, 12);
             btnResultados.Name = "btnResultados";
-            btnResultados.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            btnResultados.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnResultados.Size = new Size(125, 26);
-            btnResultados.TabIndex = 2;
+            btnResultados.TabIndex = 5;
             btnResultados.Text = "Resultados";
             btnResultados.Click += btnResultados_Click;
             // 
-            // guna2CirclePictureBox1
+            // btnGraficas
             // 
-            guna2CirclePictureBox1.Image = (Image)resources.GetObject("guna2CirclePictureBox1.Image");
-            guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(606, 12);
-            guna2CirclePictureBox1.Margin = new Padding(2);
-            guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox1.Size = new Size(0, 0);
-            guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox1.TabIndex = 1;
-            guna2CirclePictureBox1.TabStop = false;
+            btnGraficas.BackColor = Color.Transparent;
+            btnGraficas.BorderRadius = 6;
+            btnGraficas.CustomizableEdges = customizableEdges3;
+            btnGraficas.DisabledState.BorderColor = Color.DarkGray;
+            btnGraficas.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnGraficas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnGraficas.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnGraficas.FillColor = Color.Gold;
+            btnGraficas.Font = new Font("Segoe UI", 9F);
+            btnGraficas.ForeColor = Color.FromArgb(10, 25, 49);
+            btnGraficas.Location = new Point(366, 12);
+            btnGraficas.Name = "btnGraficas";
+            btnGraficas.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnGraficas.Size = new Size(125, 26);
+            btnGraficas.TabIndex = 7;
+            btnGraficas.Text = "Graficas";
+            btnGraficas.Click += btnGraficas_Click;
+            // 
+            // btnExportar
+            // 
+            btnExportar.BackColor = Color.Transparent;
+            btnExportar.BorderRadius = 6;
+            btnExportar.CustomizableEdges = customizableEdges5;
+            btnExportar.DisabledState.BorderColor = Color.DarkGray;
+            btnExportar.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnExportar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnExportar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnExportar.FillColor = Color.Gold;
+            btnExportar.Font = new Font("Segoe UI", 9F);
+            btnExportar.ForeColor = Color.FromArgb(10, 25, 49);
+            btnExportar.Location = new Point(597, 12);
+            btnExportar.Name = "btnExportar";
+            btnExportar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnExportar.Size = new Size(125, 26);
+            btnExportar.TabIndex = 6;
+            btnExportar.Text = "Exportar";
+            btnExportar.Click += btnExportar_Click;
             // 
             // btnRegresar
             // 
             btnRegresar.BorderRadius = 8;
-            btnRegresar.CustomizableEdges = customizableEdges9;
+            btnRegresar.CustomizableEdges = customizableEdges7;
             btnRegresar.DisabledState.BorderColor = Color.DarkGray;
             btnRegresar.DisabledState.CustomBorderColor = Color.DarkGray;
             btnRegresar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -169,14 +131,42 @@
             btnRegresar.FillColor = Color.FromArgb(230, 81, 0);
             btnRegresar.Font = new Font("Segoe UI", 9F);
             btnRegresar.ForeColor = Color.White;
-            btnRegresar.Location = new Point(11, 10);
+            btnRegresar.Location = new Point(11, 12);
             btnRegresar.Margin = new Padding(2);
             btnRegresar.Name = "btnRegresar";
-            btnRegresar.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnRegresar.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnRegresar.Size = new Size(47, 26);
             btnRegresar.TabIndex = 0;
             btnRegresar.Text = " ←";
             btnRegresar.Click += btnRegresar_Click;
+            // 
+            // guna2CirclePictureBox2
+            // 
+            guna2CirclePictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            guna2CirclePictureBox2.Image = (Image)resources.GetObject("guna2CirclePictureBox2.Image");
+            guna2CirclePictureBox2.ImageRotate = 0F;
+            guna2CirclePictureBox2.Location = new Point(807, 10);
+            guna2CirclePictureBox2.Margin = new Padding(2);
+            guna2CirclePictureBox2.Name = "guna2CirclePictureBox2";
+            guna2CirclePictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            guna2CirclePictureBox2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            guna2CirclePictureBox2.Size = new Size(27, 24);
+            guna2CirclePictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            guna2CirclePictureBox2.TabIndex = 2;
+            guna2CirclePictureBox2.TabStop = false;
+            // 
+            // pnlIndicador
+            // 
+            pnlIndicador.BackColor = Color.Transparent;
+            pnlIndicador.FillColor = Color.FromArgb(10, 42, 102);
+            pnlIndicador.Location = new Point(122, 4);
+            pnlIndicador.Name = "pnlIndicador";
+            pnlIndicador.Radius = 8;
+            pnlIndicador.ShadowColor = Color.Black;
+            pnlIndicador.ShadowDepth = 0;
+            pnlIndicador.ShadowShift = 0;
+            pnlIndicador.Size = new Size(141, 75);
+            pnlIndicador.TabIndex = 0;
             // 
             // pnlWork
             // 
@@ -205,20 +195,19 @@
             Size = new Size(847, 450);
             pnlTopContenedor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel pnlTopContenedor;
-        private Guna.UI2.WinForms.Guna2Button btnExportar;
-        private Guna.UI2.WinForms.Guna2Button btnGraficas;
-        private Guna.UI2.WinForms.Guna2Button btnResultados;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
         private Guna.UI2.WinForms.Guna2Button btnRegresar;
         private Guna.UI2.WinForms.Guna2ShadowPanel pnlWork;
         private Guna.UI2.WinForms.Guna2DragControl guna2DragControl1;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox2;
+        private Guna.UI2.WinForms.Guna2ShadowPanel pnlIndicador;
+        private Guna.UI2.WinForms.Guna2Button btnResultados;
+        private Guna.UI2.WinForms.Guna2Button btnGraficas;
+        private Guna.UI2.WinForms.Guna2Button btnExportar;
     }
 }

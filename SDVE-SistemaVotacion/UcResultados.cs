@@ -14,6 +14,15 @@ namespace SDVE_SistemaVotacion
 {
     public partial class UcResultados : UserControl
     {
+        // Paleta UAA: azul marino, blanco, poco rojo
+        private static readonly Color Azul = Color.FromArgb(10, 42, 102);
+        private static readonly Color Rojo = Color.FromArgb(200, 16, 46);
+        private static readonly Color Fondo = Color.FromArgb(244, 246, 251);
+        private static readonly Color Blanco = Color.White;
+        private static readonly Color Borde = Color.FromArgb(222, 227, 238);
+        private static readonly Color TextoSuave = Color.FromArgb(107, 115, 133);
+        private static readonly Color Seleccion = Color.FromArgb(220, 230, 247);
+
         private DataGridView tabla = null!;
         private Label valorTotalVotos = null!;
         private Label valorOpcionLider = null!;
@@ -23,48 +32,126 @@ namespace SDVE_SistemaVotacion
         {
             InitializeComponent();
 
-            // 1. Paleta de colores institucionales
-            Color colorTextoPrincipal = Color.White;
-            Color colorTextoSecundario = Color.Cornsilk;
-            Color amarilloUAA = Color.FromArgb(255, 204, 0);
-
-            // 2. Títulos principales (Ajustados para no chocar)
-            lTitulo.Font = HelperFuentes.BricolageBold(15f);
-            lTitulo.ForeColor = colorTextoPrincipal;
-
-            lSeleccionCategoria.Font = HelperFuentes.BricolageBold(12f);
-            lSeleccionCategoria.ForeColor = colorTextoPrincipal;
-            cbCategoria.Font = HelperFuentes.InstrumentRegular(11f);
-
-            // Anclamos el combo y su texto a la derecha para que no se superpongan con el título
-            cbCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lSeleccionCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cbCategoria.Left = pnlResultadosGenerales.Width - cbCategoria.Width - 10;
-            lSeleccionCategoria.Left = cbCategoria.Left - lSeleccionCategoria.Width - 10;
-
-            // 3. Tipografía para los subtítulos de las métricas
-            Font fuenteMetricas = HelperFuentes.BricolageBold(11f);
-            lTotalVotos.Font = fuenteMetricas;
-            lTotalVotos.ForeColor = colorTextoSecundario;
-            lOpcionLider.Font = fuenteMetricas;
-            lOpcionLider.ForeColor = colorTextoSecundario;
-            lVotosNulos.Font = fuenteMetricas;
-            lVotosNulos.ForeColor = colorTextoSecundario;
-
-            // 4. Valores gigantes con el Amarillo UAA
-            valorTotalVotos = CrearValor(guna2Panel3, amarilloUAA);
-            valorOpcionLider = CrearValor(pnlOpcionLider, amarilloUAA);
-            valorNoRegistrados = CrearValor(pnlVotosNulos, amarilloUAA);
-
-            lVotosNulos.Text = "No Registrados";
-
-            lFecha.Font = HelperFuentes.InstrumentRegular(10f);
-            lFecha.ForeColor = colorTextoSecundario;
+            AplicarEstiloUAA();
 
             PrepararTabla();
 
             this.Load += UcResultados_Load;
             cbCategoria.SelectedIndexChanged += CbCategoria_SelectedIndexChanged;
+
+        }
+
+        private void AplicarEstiloUAA()
+        {
+            // 1. Fondos
+            pnlMain.FillColor = Fondo;
+            pnlMain.BackColor = Fondo;
+            guna2Panel1.FillColor = Fondo;
+            guna2Panel1.BackColor = Fondo;
+            panelResultados.FillColor = Fondo;
+            panelResultados.BackColor = Fondo;
+            pnlMetricas.FillColor = Fondo;
+            pnlMetricas.BackColor = Fondo;
+
+            int ancho = panelResultados.Width;
+            int alto = panelResultados.Height;
+
+            // 2. Encabezado azul con línea roja
+            pnlResultadosGenerales.FillColor = Azul;
+            pnlResultadosGenerales.BackColor = Azul;
+            pnlResultadosGenerales.Location = new Point(0, 0);
+            pnlResultadosGenerales.Size = new Size(ancho, 60);
+
+            lTitulo.Text = "Resultados generales de votación";
+            lTitulo.Font = HelperFuentes.BricolageBold(15f);
+            lTitulo.ForeColor = Blanco;
+            lTitulo.BackColor = Color.Transparent;
+            lTitulo.Location = new Point(20, 15);
+
+            var lineaRoja = new Panel
+            {
+                BackColor = Rojo,
+                Dock = DockStyle.Bottom,
+                Height = 3
+            };
+            pnlResultadosGenerales.Controls.Add(lineaRoja);
+
+            // 3. Combo de categoría
+            lSeleccionCategoria.Font = HelperFuentes.BricolageBold(11f);
+            lSeleccionCategoria.ForeColor = Blanco;
+            lSeleccionCategoria.BackColor = Color.Transparent;
+
+            cbCategoria.Font = HelperFuentes.InstrumentRegular(11f);
+            cbCategoria.FillColor = Blanco;
+            cbCategoria.ForeColor = Azul;
+            cbCategoria.BorderColor = Blanco;
+            cbCategoria.BorderRadius = 8;
+            cbCategoria.FocusedColor = Rojo;
+            cbCategoria.FocusedState.BorderColor = Rojo;
+            cbCategoria.Size = new Size(240, 36);
+            cbCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lSeleccionCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbCategoria.Location = new Point(ancho - cbCategoria.Width - 20, 10);
+            lSeleccionCategoria.Location = new Point(cbCategoria.Left - lSeleccionCategoria.Width - 10, 14);
+
+            // 4. Tarjetas de métricas
+            pnlMetricas.Location = new Point(0, 72);
+            pnlMetricas.Size = new Size(ancho, 72);
+
+            Font fuenteMetricas = HelperFuentes.BricolageBold(10.5f);
+            ConfigurarTarjeta(guna2Panel3, lTotalVotos, fuenteMetricas);
+            ConfigurarTarjeta(pnlOpcionLider, lOpcionLider, fuenteMetricas);
+            ConfigurarTarjeta(pnlVotosNulos, lVotosNulos, fuenteMetricas);
+            lVotosNulos.Text = "No registrados";
+
+            valorTotalVotos = CrearValor(guna2Panel3, Azul, 16f);
+            valorOpcionLider = CrearValor(pnlOpcionLider, Azul, 14f);
+            valorNoRegistrados = CrearValor(pnlVotosNulos, Azul, 16f);
+
+            pnlMetricas.Resize += (s, e) => DistribuirTarjetas();
+            DistribuirTarjetas();
+
+            // 5. Contenedor de tabla
+            dvgResultados.FillColor = Blanco;
+            dvgResultados.BackColor = Fondo;
+            dvgResultados.BorderColor = Borde;
+            dvgResultados.BorderThickness = 1;
+            dvgResultados.BorderRadius = 10;
+            dvgResultados.Location = new Point(20, 156);
+            dvgResultados.Size = new Size(ancho - 40, alto - 156 - 40);
+
+            // 6. Pie
+            lFecha.Font = HelperFuentes.InstrumentRegular(10f);
+            lFecha.ForeColor = TextoSuave;
+            lFecha.BackColor = Color.Transparent;
+            lFecha.Location = new Point(20, alto - 30);
+        }
+
+        private void ConfigurarTarjeta(Guna.UI2.WinForms.Guna2Panel tarjeta, Guna.UI2.WinForms.Guna2HtmlLabel titulo, Font fuente)
+        {
+            tarjeta.FillColor = Blanco;
+            tarjeta.BackColor = Fondo;
+            tarjeta.BorderColor = Borde;
+            tarjeta.BorderThickness = 1;
+            tarjeta.BorderRadius = 12;
+            tarjeta.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
+            titulo.Font = fuente;
+            titulo.ForeColor = TextoSuave;
+            titulo.BackColor = Color.Transparent;
+            titulo.Location = new Point(0, 8);
+        }
+
+        private void DistribuirTarjetas()
+        {
+            int margen = 20, separacion = 14;
+            int ancho = (pnlMetricas.Width - margen * 2 - separacion * 2) / 3;
+            var tarjetas = new Control[] { guna2Panel3, pnlOpcionLider, pnlVotosNulos };
+
+            for (int i = 0; i < tarjetas.Length; i++)
+            {
+                tarjetas[i].SetBounds(margen + i * (ancho + separacion), 0, ancho, pnlMetricas.Height);
+            }
         }
 
         private void UcResultados_Load(object? sender, EventArgs e)
@@ -142,27 +229,17 @@ namespace SDVE_SistemaVotacion
             valorTotalVotos.Text = total.ToString();
             valorNoRegistrados.Text = votosNoReg.ToString();
             valorOpcionLider.Text = lider == null ? "Sin votos aún" : lider.Candidato + " (" + lider.Votos + ")";
-            lFecha.Text = "Ultima Actualizacion: " + resumen.Fecha.ToString("dd/MM/yyyy HH:mm:ss");
+            lFecha.Text = "Última actualización: " + resumen.Fecha.ToString("dd/MM/yyyy HH:mm:ss");
         }
 
         private void PrepararTabla()
         {
             txtPosicion.Visible = false;
 
-            // Ocultamos permanentemente los paneles falsos que se cortaban
-            pnlPosicion.Visible = false;
-            pnlCandidato.Visible = false;
-            pnlCategoria.Visible = false;
-            pnlTotalVotos.Visible = false;
-            pnlPorcentaje.Visible = false;
-
-            dvgResultados.BackColor = Color.FromArgb(40, 42, 54);
-
             tabla = new DataGridView
             {
-                // La tabla ahora ocupa todo el espacio sin dejar huecos
-                Location = new Point(0, 0),
-                Size = new Size(dvgResultados.Width, dvgResultados.Height),
+                Location = new Point(6, 6),
+                Size = new Size(dvgResultados.Width - 12, dvgResultados.Height - 12),
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
@@ -171,44 +248,46 @@ namespace SDVE_SistemaVotacion
                 AllowUserToResizeRows = false,
                 RowHeadersVisible = false,
 
-                // ACTIVAMOS LOS ENCABEZADOS NATIVOS
                 ColumnHeadersVisible = true,
-                ColumnHeadersHeight = 45,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 40,
                 EnableHeadersVisualStyles = false,
 
                 MultiSelect = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 BorderStyle = BorderStyle.None,
                 CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
-                GridColor = Color.FromArgb(60, 63, 80),
-                BackgroundColor = Color.FromArgb(40, 42, 54),
-
-                // Hace que las columnas se estiren solas como liga, rellenando lo blanco
+                GridColor = Borde,
+                BackgroundColor = Blanco,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             };
 
-            // Damos diseño oscuro y tipografía Bricolage a los encabezados nativos
-            tabla.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(40, 42, 54);
-            tabla.ColumnHeadersDefaultCellStyle.ForeColor = Color.Cornsilk;
-            tabla.ColumnHeadersDefaultCellStyle.Font = HelperFuentes.BricolageBold(11f);
+            // Encabezado azul
+            tabla.ColumnHeadersDefaultCellStyle.BackColor = Azul;
+            tabla.ColumnHeadersDefaultCellStyle.ForeColor = Blanco;
+            tabla.ColumnHeadersDefaultCellStyle.SelectionBackColor = Azul;
+            tabla.ColumnHeadersDefaultCellStyle.SelectionForeColor = Blanco;
+            tabla.ColumnHeadersDefaultCellStyle.Font = HelperFuentes.BricolageBold(10.5f);
             tabla.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             tabla.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            // Damos diseño oscuro a las filas
-            tabla.DefaultCellStyle.Font = HelperFuentes.InstrumentRegular(12f);
-            tabla.DefaultCellStyle.ForeColor = Color.White;
-            tabla.DefaultCellStyle.BackColor = Color.FromArgb(40, 42, 54);
+            // Filas blancas con alternado suave
+            tabla.DefaultCellStyle.Font = HelperFuentes.InstrumentRegular(11f);
+            tabla.DefaultCellStyle.ForeColor = Azul;
+            tabla.DefaultCellStyle.BackColor = Blanco;
             tabla.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            tabla.DefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 63, 80);
-            tabla.DefaultCellStyle.SelectionForeColor = Color.White;
+            tabla.DefaultCellStyle.SelectionBackColor = Seleccion;
+            tabla.DefaultCellStyle.SelectionForeColor = Azul;
+            tabla.AlternatingRowsDefaultCellStyle.BackColor = Fondo;
+            tabla.AlternatingRowsDefaultCellStyle.SelectionBackColor = Seleccion;
+            tabla.AlternatingRowsDefaultCellStyle.SelectionForeColor = Azul;
 
-            tabla.RowTemplate.Height = 38;
+            tabla.RowTemplate.Height = 36;
 
-            // Agregamos las columnas indicando su "Peso" (FillWeight) en lugar de un ancho fijo
             AgregarColumna("Posicion", "Posición", 15);
-            AgregarColumna("Candidato", "Nombre del Candidato", 35);
+            AgregarColumna("Candidato", "Nombre del candidato", 35);
             AgregarColumna("Categoria", "Categoría", 25);
-            AgregarColumna("TotalVotos", "Total Votos", 15);
+            AgregarColumna("TotalVotos", "Total de votos", 15);
             AgregarColumna("Porcentaje", "Porcentaje", 10);
 
             dvgResultados.Controls.Add(tabla);
@@ -218,12 +297,11 @@ namespace SDVE_SistemaVotacion
         private void AgregarColumna(string id, string texto, int pesoFila)
         {
             int indice = tabla.Columns.Add(id, texto);
-            // Esto le dice a la columna qué porcentaje del espacio libre debe tomar
             tabla.Columns[indice].FillWeight = pesoFila;
             tabla.Columns[indice].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
-        private static Label CrearValor(Control tarjeta, Color colorTexto)
+        private static Label CrearValor(Control tarjeta, Color colorTexto, float tamano)
         {
             var valor = new Label
             {
@@ -232,7 +310,7 @@ namespace SDVE_SistemaVotacion
                 Dock = DockStyle.Bottom,
                 Height = 35,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Font = HelperFuentes.BricolageBold(16f),
+                Font = HelperFuentes.BricolageBold(tamano),
                 ForeColor = colorTexto,
                 BackColor = Color.Transparent,
                 Text = "0"
@@ -270,5 +348,10 @@ namespace SDVE_SistemaVotacion
         }
 
         private void pnlFecha_Paint(object sender, PaintEventArgs e) { }
+
+        private void panelResultados_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

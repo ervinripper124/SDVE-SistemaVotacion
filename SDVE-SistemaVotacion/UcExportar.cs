@@ -3,19 +3,115 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 using SDVE_SistemaVotacion.Services;
 
 namespace SDVE_SistemaVotacion
 {
     public partial class UcExportar : UserControl
     {
+        // Paleta UAA: azul marino, blanco, poco rojo
+        private static readonly Color Azul = Color.FromArgb(10, 42, 102);
+        private static readonly Color Rojo = Color.FromArgb(200, 16, 46);
+        private static readonly Color Fondo = Color.FromArgb(244, 246, 251);
+        private static readonly Color Borde = Color.FromArgb(222, 227, 238);
+        private static readonly Color TextoSuave = Color.FromArgb(107, 115, 133);
+
         private DatosExportacion? datos;
 
         public UcExportar()
         {
             InitializeComponent();
+            AplicarEstiloUAA();
             btnExportar.Click += btnExportar_Click;
             this.Load += (s, e) => CargarResumen();
+        }
+
+        private void AplicarEstiloUAA()
+        {
+            int ancho = panelExportar.Width;
+
+            // 1. Fondo
+            panelExportar.FillColor = Fondo;
+            panelExportar.BackColor = Fondo;
+
+            // 2. Encabezado azul con línea roja
+            var encabezado = new Guna2Panel
+            {
+                FillColor = Azul,
+                BackColor = Azul,
+                Location = new Point(0, 0),
+                Size = new Size(ancho, 60),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
+            var titulo = new Label
+            {
+                Text = "Exportar resultados",
+                AutoSize = true,
+                Font = HelperFuentes.BricolageBold(15f),
+                ForeColor = Color.White,
+                BackColor = Color.Transparent,
+                Location = new Point(20, 15)
+            };
+            var lineaRoja = new Panel
+            {
+                BackColor = Rojo,
+                Dock = DockStyle.Bottom,
+                Height = 3
+            };
+            encabezado.Controls.Add(titulo);
+            encabezado.Controls.Add(lineaRoja);
+            panelExportar.Controls.Add(encabezado);
+
+            // 3. Tarjeta central
+            int anchoTarjeta = 560, altoTarjeta = 256;
+            var tarjeta = new Guna2Panel
+            {
+                FillColor = Color.White,
+                BackColor = Fondo,
+                BorderColor = Borde,
+                BorderThickness = 1,
+                BorderRadius = 12,
+                Size = new Size(anchoTarjeta, altoTarjeta),
+                Location = new Point((ancho - anchoTarjeta) / 2, 84),
+                Anchor = AnchorStyles.None
+            };
+            panelExportar.Controls.Add(tarjeta);
+
+            // 4. Datos del resumen
+            var filas = new[] { lVotosRegistrados, lFilasDeResultados, lAlumnosVotaron, lFechaExportar };
+            for (int i = 0; i < filas.Length; i++)
+            {
+                tarjeta.Controls.Add(filas[i]);
+                filas[i].Font = HelperFuentes.InstrumentRegular(11f);
+                filas[i].ForeColor = Azul;
+                filas[i].BackColor = Color.Transparent;
+                filas[i].Location = new Point(30, 24 + i * 34);
+            }
+
+            // 5. Nota
+            var nota = new Label
+            {
+                Text = "Se crean dos archivos CSV: resultados y participación.",
+                AutoSize = true,
+                Font = HelperFuentes.InstrumentRegular(10f),
+                ForeColor = TextoSuave,
+                BackColor = Color.Transparent,
+                Location = new Point(30, 162)
+            };
+            tarjeta.Controls.Add(nota);
+
+            // 6. Botón
+            tarjeta.Controls.Add(btnExportar);
+            btnExportar.Text = "Exportar archivo";
+            btnExportar.Font = HelperFuentes.BricolageBold(11f);
+            btnExportar.ForeColor = Color.White;
+            btnExportar.FillColor = Azul;
+            btnExportar.HoverState.FillColor = Rojo;
+            btnExportar.BorderRadius = 10;
+            btnExportar.Cursor = Cursors.Hand;
+            btnExportar.Size = new Size(240, 48);
+            btnExportar.Location = new Point((anchoTarjeta - btnExportar.Width) / 2, 192);
         }
 
         private bool CargarResumen()
@@ -99,7 +195,7 @@ namespace SDVE_SistemaVotacion
 
         private void pnlResultados_Click(object sender, EventArgs e)
         {
-            Form1 parent = this.FindForm() as Form1;
+            Form1? parent = this.FindForm() as Form1;
             if (parent != null)
             {
                 UcResultados r = new UcResultados();
@@ -109,7 +205,7 @@ namespace SDVE_SistemaVotacion
 
         private void pnlGraficas_Click(object sender, EventArgs e)
         {
-            Form1 parent = this.FindForm() as Form1;
+            Form1? parent = this.FindForm() as Form1;
             if (parent != null)
             {
                 UcGraficas g = new UcGraficas();

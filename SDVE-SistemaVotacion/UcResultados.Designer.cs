@@ -18,28 +18,28 @@ namespace SDVE_SistemaVotacion
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlMain = new Guna.UI2.WinForms.Guna2Panel();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             panelResultados = new Guna.UI2.WinForms.Guna2Panel();
@@ -73,11 +73,11 @@ namespace SDVE_SistemaVotacion
             // pnlMain
             // 
             pnlMain.Controls.Add(guna2Panel1);
-            pnlMain.CustomizableEdges = customizableEdges31;
+            pnlMain.CustomizableEdges = customizableEdges21;
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 0);
             pnlMain.Name = "pnlMain";
-            pnlMain.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            pnlMain.ShadowDecoration.CustomizableEdges = customizableEdges22;
             pnlMain.Size = new Size(847, 400);
             pnlMain.TabIndex = 2;
             // 
@@ -85,11 +85,11 @@ namespace SDVE_SistemaVotacion
             // 
             guna2Panel1.BackColor = Color.FromArgb(40, 42, 54);
             guna2Panel1.Controls.Add(panelResultados);
-            guna2Panel1.CustomizableEdges = customizableEdges29;
+            guna2Panel1.CustomizableEdges = customizableEdges19;
             guna2Panel1.Dock = DockStyle.Fill;
             guna2Panel1.Location = new Point(0, 0);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges20;
             guna2Panel1.Size = new Size(847, 400);
             guna2Panel1.TabIndex = 2;
             // 
@@ -100,13 +100,14 @@ namespace SDVE_SistemaVotacion
             panelResultados.Controls.Add(dvgResultados);
             panelResultados.Controls.Add(pnlMetricas);
             panelResultados.Controls.Add(pnlResultadosGenerales);
-            panelResultados.CustomizableEdges = customizableEdges27;
+            panelResultados.CustomizableEdges = customizableEdges17;
             panelResultados.Dock = DockStyle.Fill;
             panelResultados.Location = new Point(0, 0);
             panelResultados.Name = "panelResultados";
-            panelResultados.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            panelResultados.ShadowDecoration.CustomizableEdges = customizableEdges18;
             panelResultados.Size = new Size(847, 400);
             panelResultados.TabIndex = 3;
+            panelResultados.Paint += panelResultados_Paint;
             // 
             // lFecha
             // 
@@ -124,11 +125,11 @@ namespace SDVE_SistemaVotacion
             // 
             dvgResultados.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dvgResultados.Controls.Add(txtPosicion);
-            dvgResultados.CustomizableEdges = customizableEdges13;
+            dvgResultados.CustomizableEdges = customizableEdges3;
             dvgResultados.Location = new Point(0, 157);
             dvgResultados.Margin = new Padding(2);
             dvgResultados.Name = "dvgResultados";
-            dvgResultados.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            dvgResultados.ShadowDecoration.CustomizableEdges = customizableEdges4;
             dvgResultados.Size = new Size(845, 198);
             dvgResultados.TabIndex = 6;
             // 
@@ -162,11 +163,11 @@ namespace SDVE_SistemaVotacion
             pnlMetricas.Controls.Add(pnlVotosNulos);
             pnlMetricas.Controls.Add(pnlOpcionLider);
             pnlMetricas.Controls.Add(guna2Panel3);
-            pnlMetricas.CustomizableEdges = customizableEdges21;
+            pnlMetricas.CustomizableEdges = customizableEdges11;
             pnlMetricas.Location = new Point(2, 88);
             pnlMetricas.Margin = new Padding(2);
             pnlMetricas.Name = "pnlMetricas";
-            pnlMetricas.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            pnlMetricas.ShadowDecoration.CustomizableEdges = customizableEdges12;
             pnlMetricas.Size = new Size(842, 64);
             pnlMetricas.TabIndex = 5;
             // 
@@ -174,11 +175,11 @@ namespace SDVE_SistemaVotacion
             // 
             pnlVotosNulos.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlVotosNulos.Controls.Add(lVotosNulos);
-            pnlVotosNulos.CustomizableEdges = customizableEdges15;
+            pnlVotosNulos.CustomizableEdges = customizableEdges5;
             pnlVotosNulos.Location = new Point(581, 2);
             pnlVotosNulos.Margin = new Padding(2);
             pnlVotosNulos.Name = "pnlVotosNulos";
-            pnlVotosNulos.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            pnlVotosNulos.ShadowDecoration.CustomizableEdges = customizableEdges6;
             pnlVotosNulos.Size = new Size(240, 62);
             pnlVotosNulos.TabIndex = 6;
             // 
@@ -200,11 +201,11 @@ namespace SDVE_SistemaVotacion
             // 
             pnlOpcionLider.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlOpcionLider.Controls.Add(lOpcionLider);
-            pnlOpcionLider.CustomizableEdges = customizableEdges17;
+            pnlOpcionLider.CustomizableEdges = customizableEdges7;
             pnlOpcionLider.Location = new Point(296, 2);
             pnlOpcionLider.Margin = new Padding(2);
             pnlOpcionLider.Name = "pnlOpcionLider";
-            pnlOpcionLider.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            pnlOpcionLider.ShadowDecoration.CustomizableEdges = customizableEdges8;
             pnlOpcionLider.Size = new Size(240, 62);
             pnlOpcionLider.TabIndex = 6;
             // 
@@ -225,11 +226,11 @@ namespace SDVE_SistemaVotacion
             // guna2Panel3
             // 
             guna2Panel3.Controls.Add(lTotalVotos);
-            guna2Panel3.CustomizableEdges = customizableEdges19;
+            guna2Panel3.CustomizableEdges = customizableEdges9;
             guna2Panel3.Location = new Point(20, 2);
             guna2Panel3.Margin = new Padding(2);
             guna2Panel3.Name = "guna2Panel3";
-            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2Panel3.Size = new Size(240, 62);
             guna2Panel3.TabIndex = 0;
             // 
@@ -253,11 +254,11 @@ namespace SDVE_SistemaVotacion
             pnlResultadosGenerales.Controls.Add(cbCategoria);
             pnlResultadosGenerales.Controls.Add(lSeleccionCategoria);
             pnlResultadosGenerales.Controls.Add(lTitulo);
-            pnlResultadosGenerales.CustomizableEdges = customizableEdges25;
+            pnlResultadosGenerales.CustomizableEdges = customizableEdges15;
             pnlResultadosGenerales.Location = new Point(0, 45);
             pnlResultadosGenerales.Margin = new Padding(2);
             pnlResultadosGenerales.Name = "pnlResultadosGenerales";
-            pnlResultadosGenerales.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            pnlResultadosGenerales.ShadowDecoration.CustomizableEdges = customizableEdges16;
             pnlResultadosGenerales.Size = new Size(847, 41);
             pnlResultadosGenerales.TabIndex = 4;
             // 
@@ -265,7 +266,7 @@ namespace SDVE_SistemaVotacion
             // 
             cbCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cbCategoria.BackColor = Color.Transparent;
-            cbCategoria.CustomizableEdges = customizableEdges23;
+            cbCategoria.CustomizableEdges = customizableEdges13;
             cbCategoria.DrawMode = DrawMode.OwnerDrawFixed;
             cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCategoria.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -277,7 +278,7 @@ namespace SDVE_SistemaVotacion
             cbCategoria.Location = new Point(568, 3);
             cbCategoria.Margin = new Padding(2);
             cbCategoria.Name = "cbCategoria";
-            cbCategoria.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            cbCategoria.ShadowDecoration.CustomizableEdges = customizableEdges14;
             cbCategoria.Size = new Size(264, 36);
             cbCategoria.TabIndex = 2;
             // 
@@ -290,7 +291,7 @@ namespace SDVE_SistemaVotacion
             lSeleccionCategoria.Location = new Point(475, 6);
             lSeleccionCategoria.Margin = new Padding(2);
             lSeleccionCategoria.Name = "lSeleccionCategoria";
-            lSeleccionCategoria.Size = new Size(89, 30);
+            lSeleccionCategoria.Size = new Size(99, 30);
             lSeleccionCategoria.TabIndex = 1;
             lSeleccionCategoria.Text = "Categoria:";
             // 
@@ -334,7 +335,6 @@ namespace SDVE_SistemaVotacion
             panelResultados.ResumeLayout(false);
             panelResultados.PerformLayout();
             dvgResultados.ResumeLayout(false);
-            dvgResultados.PerformLayout();
             pnlMetricas.ResumeLayout(false);
             pnlVotosNulos.ResumeLayout(false);
             pnlOpcionLider.ResumeLayout(false);

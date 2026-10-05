@@ -35,11 +35,14 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             lblTitulo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             lbSubtitulo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnComenzarVotacion = new Guna.UI2.WinForms.Guna2Button();
             guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             btnResultados = new Guna.UI2.WinForms.Guna2Button();
+            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -116,11 +119,31 @@
             btnResultados.Text = "Resultados";
             btnResultados.Click += btnResultados_Click_1;
             // 
+            // guna2Button1
+            // 
+            guna2Button1.BorderRadius = 12;
+            guna2Button1.CustomizableEdges = customizableEdges7;
+            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button1.FillColor = Color.FromArgb(230, 81, 0);
+            guna2Button1.Font = new Font("Segoe UI", 9F);
+            guna2Button1.ForeColor = Color.White;
+            guna2Button1.Location = new Point(12, 345);
+            guna2Button1.Name = "guna2Button1";
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2Button1.Size = new Size(145, 45);
+            guna2Button1.TabIndex = 5;
+            guna2Button1.Text = "Salir";
+            guna2Button1.Click += guna2Button1_Click;
+            // 
             // UcBienvenida
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 246, 249);
+            Controls.Add(guna2Button1);
             Controls.Add(btnResultados);
             Controls.Add(btnComenzarVotacion);
             Controls.Add(lbSubtitulo);
@@ -141,5 +164,6 @@
         private Guna.UI2.WinForms.Guna2Button btnComenzarVotacion;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2Button btnResultados;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }

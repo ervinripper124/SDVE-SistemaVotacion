@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Guna.UI2.WinForms;
 using SDVE_SistemaVotacion.Models;
 using SDVE_SistemaVotacion.Services;
 
@@ -12,15 +13,22 @@ namespace SDVE_SistemaVotacion
 {
     public partial class UcGraficas : UserControl
     {
-        private static readonly Color Azul = Color.FromArgb(94, 148, 255);
-        private static readonly Color Gris = Color.FromArgb(200, 200, 200);
+        // Paleta UAA: azul marino, blanco, poco rojo
+        private static readonly Color Azul = Color.FromArgb(10, 42, 102);
+        private static readonly Color AzulMedio = Color.FromArgb(52, 105, 184);
+        private static readonly Color Celeste = Color.FromArgb(143, 176, 225);
+        private static readonly Color Rojo = Color.FromArgb(200, 16, 46);
+        private static readonly Color Gris = Color.FromArgb(176, 184, 201);
+        private static readonly Color Fondo = Color.FromArgb(244, 246, 251);
+        private static readonly Color Borde = Color.FromArgb(222, 227, 238);
+        private static readonly Color TextoSuave = Color.FromArgb(107, 115, 133);
 
         private static readonly Agrupacion[] Agrupaciones =
             { Agrupacion.Grupo, Agrupacion.Carrera, Agrupacion.CentroUniversitario };
 
-        private readonly ComboBox cmbGrafica = new ComboBox();
-        private readonly ComboBox cmbConvocatoria = new ComboBox();
-        private readonly ComboBox cmbAgrupar = new ComboBox();
+        private readonly Guna2ComboBox cmbGrafica = new Guna2ComboBox();
+        private readonly Guna2ComboBox cmbConvocatoria = new Guna2ComboBox();
+        private readonly Guna2ComboBox cmbAgrupar = new Guna2ComboBox();
 
         private bool cargando = true;   // evita redibujar mientras se llenan los combos
 
@@ -33,22 +41,55 @@ namespace SDVE_SistemaVotacion
 
         private void PrepararControles()
         {
-            cmbGrafica.DropDownStyle = ComboBoxStyle.DropDownList;
+            int ancho = panelGrafica.Width;
+            int alto = panelGrafica.Height;
+
+            // 1. Fondo
+            panelGrafica.FillColor = Fondo;
+            panelGrafica.BackColor = Fondo;
+
+            // 2. Encabezado azul con línea roja
+            var encabezado = new Guna2Panel
+            {
+                FillColor = Azul,
+                BackColor = Azul,
+                Location = new Point(0, 0),
+                Size = new Size(ancho, 60),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
+            var titulo = new Label
+            {
+                Text = "Gráficas de votación",
+                AutoSize = true,
+                Font = HelperFuentes.BricolageBold(15f),
+                ForeColor = Color.White,
+                BackColor = Color.Transparent,
+                Location = new Point(20, 15)
+            };
+            var lineaRoja = new Panel
+            {
+                BackColor = Rojo,
+                Dock = DockStyle.Bottom,
+                Height = 3
+            };
+            encabezado.Controls.Add(titulo);
+            encabezado.Controls.Add(lineaRoja);
+            panelGrafica.Controls.Add(encabezado);
+
+            // 3. Combos
+            ConfigurarCombo(cmbGrafica, 165);
             cmbGrafica.Items.AddRange(new object[]
             {
                 "1. Votos por candidato",
                 "2. Participación y abstención",
                 "3. Participación por grupo"
             });
-            cmbGrafica.Width = 230;
 
-            cmbConvocatoria.DropDownStyle = ComboBoxStyle.DropDownList;
+            ConfigurarCombo(cmbConvocatoria, 165);
             foreach (var c in CalculoResultados.Orden) cmbConvocatoria.Items.Add(c.ObtenerNombreMostrar());
-            cmbConvocatoria.Width = 220;
 
-            cmbAgrupar.DropDownStyle = ComboBoxStyle.DropDownList;
+            ConfigurarCombo(cmbAgrupar, 125);
             foreach (var a in Agrupaciones) cmbAgrupar.Items.Add(a.NombreVisible());
-            cmbAgrupar.Width = 180;
 
             cmbGrafica.SelectedIndex = 0;
             cmbConvocatoria.SelectedIndex = 0;
@@ -63,25 +104,74 @@ namespace SDVE_SistemaVotacion
             cmbConvocatoria.SelectedIndexChanged += (s, e) => { if (!cargando) Dibujar(); };
             cmbAgrupar.SelectedIndexChanged += (s, e) => { if (!cargando) Dibujar(); };
 
+            // 4. Tarjeta de filtros
+            var tarjetaFiltros = new Guna2Panel
+            {
+                FillColor = Color.White,
+                BackColor = Fondo,
+                BorderColor = Borde,
+                BorderThickness = 1,
+                BorderRadius = 12,
+                Location = new Point(20, 72),
+                Size = new Size(ancho - 40, 56),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
             var barra = new FlowLayoutPanel
             {
-                Location = new Point(20, 74),
-                Size = new Size(panelGrafica.Width - 40, 40),
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(10, 8, 6, 0),
                 BackColor = Color.Transparent,
-                WrapContents = false
+                WrapContents = false,
+                AutoScroll = false
             };
-            barra.Controls.Add(Etiqueta("Gráfica:"));
+            barra.Controls.Add(Etiqueta("Gráfica"));
             barra.Controls.Add(cmbGrafica);
-            barra.Controls.Add(Etiqueta("   Convocatoria:"));
+            barra.Controls.Add(Etiqueta("Convocatoria"));
             barra.Controls.Add(cmbConvocatoria);
-            barra.Controls.Add(Etiqueta("   Agrupar por:"));
+            barra.Controls.Add(Etiqueta("Agrupar por"));
             barra.Controls.Add(cmbAgrupar);
-            panelGrafica.Controls.Add(barra);
+            tarjetaFiltros.Controls.Add(barra);
+            panelGrafica.Controls.Add(tarjetaFiltros);
 
-            chartResultados.Location = new Point(20, 120);
-            chartResultados.Size = new Size(panelGrafica.Width - 40, panelGrafica.Height - 140);
-            chartResultados.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            // 5. Tarjeta de la gráfica
+            var tarjetaChart = new Guna2Panel
+            {
+                FillColor = Color.White,
+                BackColor = Fondo,
+                BorderColor = Borde,
+                BorderThickness = 1,
+                BorderRadius = 12,
+                Padding = new Padding(10),
+                Location = new Point(20, 140),
+                Size = new Size(ancho - 40, alto - 140 - 16),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
+            };
+            panelGrafica.Controls.Add(tarjetaChart);
+            tarjetaChart.Controls.Add(chartResultados);
+            chartResultados.Dock = DockStyle.Fill;
+            chartResultados.BackColor = Color.White;
+
+            chartResultados.Palette = ChartColorPalette.None;
+            chartResultados.PaletteCustomColors = new[] { Azul, Rojo, AzulMedio, Celeste, Gris };
+        }
+
+        private static void ConfigurarCombo(Guna2ComboBox cmb, int ancho)
+        {
+            cmb.DropDownWidth = 240;
+            cmb.DrawMode = DrawMode.OwnerDrawFixed;
+            cmb.ItemHeight = 28;
+            cmb.Size = new Size(ancho, 36);
+            cmb.Font = HelperFuentes.InstrumentRegular(10f);
+            cmb.FillColor = Color.White;
+            cmb.ForeColor = Azul;
+            cmb.BorderColor = Borde;
+            cmb.BorderThickness = 1;
+            cmb.BorderRadius = 8;
+            cmb.BackColor = Color.Transparent;
+            cmb.FocusedColor = Azul;
+            cmb.FocusedState.BorderColor = Azul;
+            cmb.HoverState.BorderColor = Azul;
+            cmb.Margin = new Padding(0, 0, 10, 0);
         }
 
         private static Label Etiqueta(string texto) =>
@@ -89,9 +179,10 @@ namespace SDVE_SistemaVotacion
             {
                 Text = texto,
                 AutoSize = true,
-                Margin = new Padding(0, 6, 4, 0),
+                Margin = new Padding(0, 9, 6, 0),
                 BackColor = Color.Transparent,
-                ForeColor = Color.White
+                ForeColor = TextoSuave,
+                Font = HelperFuentes.BricolageBold(10f)
             };
 
         /// <summary>Lee los votos y el padrón, y dibuja la gráfica elegida.</summary>
@@ -132,7 +223,15 @@ namespace SDVE_SistemaVotacion
             if (filas.Count == 0) { SinDatos("Aún no hay votos en " + convocatoria.ObtenerNombreMostrar()); return; }
 
             Preparar("Votos por candidato - " + convocatoria.ObtenerNombreMostrar(), true);
-            var serie = new Series("Votos") { ChartType = SeriesChartType.Pie, Legend = "Leyenda" };
+            var serie = new Series("Votos")
+            {
+                ChartType = SeriesChartType.Pie,
+                Legend = "Leyenda",
+                LabelForeColor = Color.White,
+                Font = HelperFuentes.BricolageBold(10f)
+            };
+            serie.BorderColor = Color.White;
+            serie.BorderWidth = 2;
 
             foreach (var f in filas)
             {
@@ -152,16 +251,25 @@ namespace SDVE_SistemaVotacion
             if (g.Electores == 0) { SinDatos("El padrón no tiene alumnos."); return; }
 
             Preparar("Participación y abstención - " + convocatoria.ObtenerNombreMostrar(), true);
-            var serie = new Series("Participacion") { ChartType = SeriesChartType.Doughnut, Legend = "Leyenda" };
+            var serie = new Series("Participacion")
+            {
+                ChartType = SeriesChartType.Doughnut,
+                Legend = "Leyenda",
+                Font = HelperFuentes.BricolageBold(10f)
+            };
+            serie.BorderColor = Color.White;
+            serie.BorderWidth = 2;
 
             int a = serie.Points.AddXY("Votaron", g.Votaron);
             serie.Points[a].Color = Azul;
+            serie.Points[a].LabelForeColor = Color.White;
             serie.Points[a].Label = g.PorcentajeParticipacion.ToString("0.0") + "%";
             serie.Points[a].LegendText = "Votaron: " + g.Votaron + " de " + g.Electores +
                                          " (" + g.PorcentajeParticipacion.ToString("0.0") + "%)";
 
             int b = serie.Points.AddXY("No votaron", g.Abstenciones);
             serie.Points[b].Color = Gris;
+            serie.Points[b].LabelForeColor = Azul;
             serie.Points[b].Label = g.PorcentajeAbstencion.ToString("0.0") + "%";
             serie.Points[b].LegendText = "No votaron (abstención): " + g.Abstenciones +
                                          " (" + g.PorcentajeAbstencion.ToString("0.0") + "%)";
@@ -183,17 +291,29 @@ namespace SDVE_SistemaVotacion
             area.AxisY.Minimum = 0;
             area.AxisY.Maximum = 100;
             area.AxisY.Title = "% de alumnos";
+            area.AxisY.TitleForeColor = TextoSuave;
             area.AxisX.Interval = 1;
             area.AxisX.Minimum = 0.5;                        // un poco de margen a cada lado
             area.AxisX.Maximum = filas.Count + 0.5;
 
-            // Forzar que las etiquetas del eje X muestren exactamente el nombre (Valor) y se acomoden sin solaparse
             area.AxisX.LabelStyle.Angle = filas.Count > 4 ? -35 : 0;
-            area.AxisX.LabelStyle.Font = new Font("Segoe UI", 9F);
+            area.AxisX.LabelStyle.Font = HelperFuentes.InstrumentRegular(9f);
             area.AxisX.LabelStyle.IsStaggered = false;
 
-            var votaron = new Series("Votaron (%)") { ChartType = SeriesChartType.StackedColumn, Legend = "Leyenda", Color = Azul };
-            var faltaron = new Series("No votaron (%)") { ChartType = SeriesChartType.StackedColumn, Legend = "Leyenda", Color = Gris };
+            var votaron = new Series("Votaron (%)")
+            {
+                ChartType = SeriesChartType.StackedColumn,
+                Legend = "Leyenda",
+                Color = Azul,
+                LabelForeColor = Color.White,
+                Font = HelperFuentes.BricolageBold(9f)
+            };
+            var faltaron = new Series("No votaron (%)")
+            {
+                ChartType = SeriesChartType.StackedColumn,
+                Legend = "Leyenda",
+                Color = Gris
+            };
 
             for (int n = 0; n < filas.Count; n++)
             {
@@ -226,10 +346,28 @@ namespace SDVE_SistemaVotacion
             chartResultados.Titles.Clear();
             chartResultados.Legends.Clear();
 
-            chartResultados.ChartAreas.Add(new ChartArea("Area"));
+            var area = new ChartArea("Area") { BackColor = Color.Transparent };
+            foreach (var eje in new[] { area.AxisX, area.AxisY })
+            {
+                eje.LineColor = Borde;
+                eje.MajorGrid.LineColor = Borde;
+                eje.MajorTickMark.LineColor = Borde;
+                eje.LabelStyle.ForeColor = TextoSuave;
+                eje.LabelStyle.Font = HelperFuentes.InstrumentRegular(9f);
+            }
+            chartResultados.ChartAreas.Add(area);
+
             if (conLeyenda)
-                chartResultados.Legends.Add(new Legend("Leyenda") { Docking = Docking.Right });
-            chartResultados.Titles.Add(new Title(titulo, Docking.Top, new Font("Segoe UI", 12f, FontStyle.Bold), Color.Black));
+            {
+                chartResultados.Legends.Add(new Legend("Leyenda")
+                {
+                    Docking = Docking.Right,
+                    BackColor = Color.Transparent,
+                    ForeColor = Azul,
+                    Font = HelperFuentes.InstrumentRegular(10f)
+                });
+            }
+            chartResultados.Titles.Add(new Title(titulo, Docking.Top, HelperFuentes.BricolageBold(12f), Azul));
         }
 
         /// <summary>En lugar de una ventana emergente, muestra el aviso dentro de la gráfica.</summary>
@@ -239,7 +377,7 @@ namespace SDVE_SistemaVotacion
             chartResultados.ChartAreas.Clear();
             chartResultados.Legends.Clear();
             chartResultados.Titles.Clear();
-            chartResultados.Titles.Add(new Title(mensaje, Docking.Top, new Font("Segoe UI", 12f), Color.DimGray));
+            chartResultados.Titles.Add(new Title(mensaje, Docking.Top, HelperFuentes.InstrumentRegular(12f), TextoSuave));
             chartResultados.Refresh();
         }
 
