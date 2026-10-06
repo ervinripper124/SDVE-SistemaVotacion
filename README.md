@@ -29,15 +29,50 @@ SDVE-SistemaVotacion/
 ├── SDVE-SistemaVotacion/
 │   ├── SDVE-SistemaVotacion.csproj
 │   ├── SDVE-SistemaVotacion.slnx
-│   ├── Form1.cs
-│   ├── Program.cs
-│   ├── Models/
-│   ├── Services/
 │   ├── Datos/
-│   ├── Resources/
-│   ├── Properties/
+│   │   └── padron.csv
 │   ├── fonts/
-│   └── Controles de usuario
+│   │   ├── BricolageGrotesque_24pt-Bold.ttf
+│   │   ├── BricolageGrotesque_24pt-Regular.ttf
+│   │   ├── InstrumentSans-Bold.ttf
+│   │   └── InstrumentSans-Regular.ttf
+│   ├── Models/
+│   │   ├── Alumno.cs
+│   │   ├── Candidato.cs
+│   │   ├── ResultadoReporte.cs
+│   │   ├── TipoConvocatoria.cs
+│   │   └── Voto.cs
+│   ├── Properties/
+│   │   ├── Resources.Designer.cs
+│   │   └── Resources.resx
+│   ├── Resources/
+│   │   └── flecha_0A1931.png
+│   ├── Services/
+│   │   ├── AlmacenPadron.cs
+│   │   ├── AlmacenVotos.cs
+│   │   ├── CalculoParticipacion.cs
+│   │   ├── CalculosResultados.cs
+│   │   ├── Exportador.cs
+│   │   ├── LectorCsv.cs
+│   │   ├── ListaOficial.cs
+│   │   └── Texto.cs
+│   ├── Form1.cs
+│   ├── HelperFuentes.cs
+│   ├── HelperUI.cs
+│   ├── icono_sdve.ico
+│   ├── Program.cs
+│   ├── UcBienvenida.cs
+│   ├── UcConfirmacion.cs
+│   ├── UcContenedor.cs
+│   ├── UcExportar.cs
+│   ├── UcGraficas.cs
+│   ├── UcIdentificacion.cs
+│   ├── UcPapeleta.cs
+│   ├── UcResultados.cs
+│   ├── UcVotarConsejoDeRepresentantes.cs
+│   ├── UcVotarConsejoUniversitario.cs
+│   ├── UcVotarSociedadDeAlumnos.cs
+│   └── UcVotoRegistrado.cs
 └── Miniproyecto-01/
     ├── Archivo_del_respaldo_del_proyecto/
     ├── Documentación de usuario y técnica del sistema/
